@@ -1,0 +1,7 @@
+<ul class="nav nav-list">
+    <li ng-repeat="item in ::sidebar.root" ng-include="'/Templates/item.html'" ng-class="{'open':item.submenu && isSubOpen(item.name), 'active': isActiveItem(item.name), 'hover': $parent.portal.settings.hover, 'highlight': $parent.portal.settings.highlight}"></li>
+</ul>
+
+<div class="sidebar-toggle sidebar-collapse">
+    <i class='ace-icon fa' ng-class="{'fa-angle-double-left': !portal.sidebar.minimized, 'fa-angle-double-right': portal.sidebar.minimized}"></i>
+</div>

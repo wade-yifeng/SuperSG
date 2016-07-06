@@ -1,0 +1,562 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{9B98C8F8-9CDA-4EF5-BD1F-57BA6ED0BAEC}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Sleemon.Portal</RootNamespace>
+    <AssemblyName>Sleemon.Portal</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="log4net, Version=1.2.15.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.5\lib\net45-full\log4net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Owin, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.3.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.3.0.1\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.3.0.1\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.3.0.1\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=6d32ff45e0ccc69f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.4.0.1\lib\net45\Microsoft.Practices.Unity.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Configuration, Version=4.0.0.0, Culture=neutral, PublicKeyToken=6d32ff45e0ccc69f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.4.0.1\lib\net45\Microsoft.Practices.Unity.Configuration.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.RegistrationByConvention, Version=4.0.0.0, Culture=neutral, PublicKeyToken=6d32ff45e0ccc69f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.4.0.1\lib\net45\Microsoft.Practices.Unity.RegistrationByConvention.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.3\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Common\ClaimsIdentityExtensions.cs" />
+    <Compile Include="Common\Extensions.cs" />
+    <Compile Include="Common\HttpContextUtility.cs" />
+    <Compile Include="Common\LogHelper.cs" />
+    <Compile Include="Common\SiteConfiguration.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\SettingController.cs" />
+    <Compile Include="Core\HandleErrorsAttribute.cs" />
+    <Compile Include="Core\ImplementServiceClient.cs" />
+    <Compile Include="Core\JsonContentAction.cs" />
+    <Compile Include="Core\SiteAuthorize.cs" />
+    <Compile Include="Factories\ServiceFactory.cs" />
+    <Compile Include="Factories\UnityControllerFactory.cs" />
+    <Compile Include="Factories\UnityDependencyResolver.cs" />
+    <Compile Include="Factories\UnityDependencyScope.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DepartmentTreeViewModel.cs" />
+    <Compile Include="Models\User.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Startup.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\avatars\avatar.png" />
+    <Content Include="Assets\avatars\avatar1.png" />
+    <Content Include="Assets\avatars\avatar2.png" />
+    <Content Include="Assets\avatars\avatar3.png" />
+    <Content Include="Assets\avatars\avatar4.png" />
+    <Content Include="Assets\avatars\avatar5.png" />
+    <Content Include="Assets\avatars\profile-pic.jpg" />
+    <Content Include="Assets\avatars\user.jpg" />
+    <Content Include="Assets\components\angular-animate\angular-animate.js" />
+    <Content Include="Assets\components\angular-animate\angular-animate.min.js" />
+    <Content Include="Assets\components\angular-animate\index.js" />
+    <Content Include="Assets\components\angular-bootstrap\index.js" />
+    <Content Include="Assets\components\angular-bootstrap\ui-bootstrap-csp.css" />
+    <Content Include="Assets\components\angular-bootstrap\ui-bootstrap-tpls.js" />
+    <Content Include="Assets\components\angular-bootstrap\ui-bootstrap-tpls.min.js" />
+    <Content Include="Assets\components\angular-bootstrap\ui-bootstrap.js" />
+    <Content Include="Assets\components\angular-bootstrap\ui-bootstrap.min.js" />
+    <Content Include="Assets\components\angular-datatables\dist\angular-datatables.js" />
+    <Content Include="Assets\components\angular-datatables\dist\angular-datatables.min.js" />
+    <Content Include="Assets\components\angular-datatables\dist\plugins\bootstrap\angular-datatables.bootstrap.js" />
+    <Content Include="Assets\components\angular-datatables\dist\plugins\bootstrap\angular-datatables.bootstrap.min.js" />
+    <Content Include="Assets\components\angular-datatables\dist\plugins\bootstrap\datatables.bootstrap.css" />
+    <Content Include="Assets\components\angular-datatables\dist\plugins\bootstrap\datatables.bootstrap.min.css" />
+    <Content Include="Assets\components\angular-datatables\dist\plugins\buttons\angular-datatables.buttons.js" />
+    <Content Include="Assets\components\angular-datatables\dist\plugins\buttons\angular-datatables.buttons.min.js" />
+    <Content Include="Assets\components\angular-datatables\dist\plugins\colreorder\angular-datatables.colreorder.js" />
+    <Content Include="Assets\components\angular-datatables\dist\plugins\colreorder\angular-datatables.colreorder.min.js" />
+    <Content Include="Assets\components\angular-datatables\dist\plugins\columnfilter\angular-datatables.columnfilter.js" />
+    <Content Include="Assets\components\angular-datatables\dist\plugins\columnfilter\angular-datatables.columnfilter.min.js" />
+    <Content Include="Assets\components\angular-datatables\dist\plugins\colvis\angular-datatables.colvis.js" />
+    <Content Include="Assets\components\angular-datatables\dist\plugins\colvis\angular-datatables.colvis.min.js" />
+    <Content Include="Assets\components\angular-datatables\dist\plugins\fixedcolumns\angular-datatables.fixedcolumns.js" />
+    <Content Include="Assets\components\angular-datatables\dist\plugins\fixedcolumns\angular-datatables.fixedcolumns.min.js" />
+    <Content Include="Assets\components\angular-datatables\dist\plugins\fixedheader\angular-datatables.fixedheader.js" />
+    <Content Include="Assets\components\angular-datatables\dist\plugins\fixedheader\angular-datatables.fixedheader.min.js" />
+    <Content Include="Assets\components\angular-datatables\dist\plugins\light-columnfilter\angular-datatables.light-columnfilter.js" />
+    <Content Include="Assets\components\angular-datatables\dist\plugins\light-columnfilter\angular-datatables.light-columnfilter.min.js" />
+    <Content Include="Assets\components\angular-datatables\dist\plugins\scroller\angular-datatables.scroller.js" />
+    <Content Include="Assets\components\angular-datatables\dist\plugins\scroller\angular-datatables.scroller.min.js" />
+    <Content Include="Assets\components\angular-datatables\dist\plugins\select\angular-datatables.select.js" />
+    <Content Include="Assets\components\angular-datatables\dist\plugins\select\angular-datatables.select.min.js" />
+    <Content Include="Assets\components\angular-datatables\dist\plugins\tabletools\angular-datatables.tabletools.js" />
+    <Content Include="Assets\components\angular-datatables\dist\plugins\tabletools\angular-datatables.tabletools.min.js" />
+    <Content Include="Assets\components\angular-datatables\index.js" />
+    <Content Include="Assets\components\angular-flot\angular-flot.js" />
+    <Content Include="Assets\components\angular-flot\angular-flot.min.js" />
+    <Content Include="Assets\components\angular-loading-bar\loading-bar.min.css" />
+    <Content Include="Assets\components\angular-loading-bar\loading-bar.min.js" />
+    <Content Include="Assets\components\angular-resource\angular-resource.js" />
+    <Content Include="Assets\components\angular-resource\angular-resource.min.js" />
+    <Content Include="Assets\components\angular-resource\index.js" />
+    <Content Include="Assets\components\angular-sanitize\angular-sanitize.js" />
+    <Content Include="Assets\components\angular-sanitize\angular-sanitize.min.js" />
+    <Content Include="Assets\components\angular-sanitize\index.js" />
+    <Content Include="Assets\components\angular-touch\angular-touch.js" />
+    <Content Include="Assets\components\angular-touch\angular-touch.min.js" />
+    <Content Include="Assets\components\angular-touch\index.js" />
+    <Content Include="Assets\components\angular-tree-control\angular-tree-control.js" />
+    <Content Include="Assets\components\angular-tree-control\angular-tree-control.min.js" />
+    <Content Include="Assets\components\angular-tree-control\css\tree-control-attribute.css" />
+    <Content Include="Assets\components\angular-tree-control\css\tree-control.css" />
+    <Content Include="Assets\components\angular-tree-control\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Assets\components\angular-tree-control\images\file.png" />
+    <Content Include="Assets\components\angular-tree-control\images\folder-closed.png" />
+    <Content Include="Assets\components\angular-tree-control\images\folder.png" />
+    <Content Include="Assets\components\angular-tree-control\images\node-closed-2.png" />
+    <Content Include="Assets\components\angular-tree-control\images\node-closed-light.png" />
+    <Content Include="Assets\components\angular-tree-control\images\node-closed.png" />
+    <Content Include="Assets\components\angular-tree-control\images\node-opened-2.png" />
+    <Content Include="Assets\components\angular-tree-control\images\node-opened-light.png" />
+    <Content Include="Assets\components\angular-tree-control\images\node-opened.png" />
+    <Content Include="Assets\components\angular-tree-control\images\sample.png" />
+    <Content Include="Assets\components\angular-ui-router\angular-ui-router.js" />
+    <Content Include="Assets\components\angular-ui-router\angular-ui-router.min.js" />
+    <Content Include="Assets\components\angular\angular-csp.css" />
+    <Content Include="Assets\components\angular\angular.js" />
+    <Content Include="Assets\components\angular\angular.min.js" />
+    <Content Include="Assets\components\angular\index.js" />
+    <Content Include="Assets\components\bootstrap\transition.js" />
+    <Content Include="Assets\components\bootstrap\transition.min.js" />
+    <Content Include="Assets\components\datatables\jquery.dataTables.bootstrap.js" />
+    <Content Include="Assets\components\datatables\jquery.dataTables.bootstrap.min.js" />
+    <Content Include="Assets\components\datatables\media\css\dataTables.bootstrap.css" />
+    <Content Include="Assets\components\datatables\media\css\dataTables.bootstrap.min.css" />
+    <Content Include="Assets\components\datatables\media\css\dataTables.bootstrap4.css" />
+    <Content Include="Assets\components\datatables\media\css\dataTables.bootstrap4.min.css" />
+    <Content Include="Assets\components\datatables\media\css\dataTables.foundation.css" />
+    <Content Include="Assets\components\datatables\media\css\dataTables.foundation.min.css" />
+    <Content Include="Assets\components\datatables\media\css\dataTables.jqueryui.css" />
+    <Content Include="Assets\components\datatables\media\css\dataTables.jqueryui.min.css" />
+    <Content Include="Assets\components\datatables\media\css\dataTables.material.css" />
+    <Content Include="Assets\components\datatables\media\css\dataTables.material.min.css" />
+    <Content Include="Assets\components\datatables\media\css\dataTables.semanticui.css" />
+    <Content Include="Assets\components\datatables\media\css\dataTables.semanticui.min.css" />
+    <Content Include="Assets\components\datatables\media\css\dataTables.uikit.css" />
+    <Content Include="Assets\components\datatables\media\css\dataTables.uikit.min.css" />
+    <Content Include="Assets\components\datatables\media\css\jquery.dataTables.css" />
+    <Content Include="Assets\components\datatables\media\css\jquery.dataTables.min.css" />
+    <Content Include="Assets\components\datatables\media\css\jquery.dataTables_themeroller.css" />
+    <Content Include="Assets\components\datatables\media\images\sort_asc.png" />
+    <Content Include="Assets\components\datatables\media\images\sort_asc_disabled.png" />
+    <Content Include="Assets\components\datatables\media\images\sort_both.png" />
+    <Content Include="Assets\components\datatables\media\images\sort_desc.png" />
+    <Content Include="Assets\components\datatables\media\images\sort_desc_disabled.png" />
+    <Content Include="Assets\components\datatables\media\js\dataTables.bootstrap.js" />
+    <Content Include="Assets\components\datatables\media\js\dataTables.bootstrap.min.js" />
+    <Content Include="Assets\components\datatables\media\js\dataTables.bootstrap4.js" />
+    <Content Include="Assets\components\datatables\media\js\dataTables.bootstrap4.min.js" />
+    <Content Include="Assets\components\datatables\media\js\dataTables.foundation.js" />
+    <Content Include="Assets\components\datatables\media\js\dataTables.foundation.min.js" />
+    <Content Include="Assets\components\datatables\media\js\dataTables.jqueryui.js" />
+    <Content Include="Assets\components\datatables\media\js\dataTables.jqueryui.min.js" />
+    <Content Include="Assets\components\datatables\media\js\dataTables.material.js" />
+    <Content Include="Assets\components\datatables\media\js\dataTables.material.min.js" />
+    <Content Include="Assets\components\datatables\media\js\dataTables.semanticui.js" />
+    <Content Include="Assets\components\datatables\media\js\dataTables.semanticui.min.js" />
+    <Content Include="Assets\components\datatables\media\js\dataTables.uikit.js" />
+    <Content Include="Assets\components\datatables\media\js\dataTables.uikit.min.js" />
+    <Content Include="Assets\components\datatables\media\js\jquery.dataTables.js" />
+    <Content Include="Assets\components\datatables\media\js\jquery.dataTables.min.js" />
+    <Content Include="Assets\components\datatables\media\js\jquery.js" />
+    <Content Include="Assets\components\easypiechart\angular.easypiechart.js" />
+    <Content Include="Assets\components\easypiechart\angular.easypiechart.min.js" />
+    <Content Include="Assets\components\Flot\jquery.flot.js" />
+    <Content Include="Assets\components\Flot\jquery.flot.min.js" />
+    <Content Include="Assets\components\Flot\jquery.flot.pie.js" />
+    <Content Include="Assets\components\Flot\jquery.flot.pie.min.js" />
+    <Content Include="Assets\components\Flot\jquery.flot.resize.js" />
+    <Content Include="Assets\components\Flot\jquery.flot.resize.min.js" />
+    <Content Include="Assets\components\font-awesome\css\font-awesome.css" />
+    <Content Include="Assets\components\font-awesome\css\font-awesome.min.css" />
+    <Content Include="Assets\components\font-awesome\fonts\fontawesome-webfont.svg" />
+    <Content Include="Assets\components\jquery.sparkline\index.js" />
+    <Content Include="Assets\components\jquery.sparkline\index.min.js" />
+    <Content Include="Assets\components\jquery\jquery.js" />
+    <Content Include="Assets\components\jquery\jquery.min.js" />
+    <Content Include="Assets\components\jquery\jquery.mobile.custom.js" />
+    <Content Include="Assets\components\jquery\jquery.mobile.custom.min.js" />
+    <Content Include="Assets\components\ngstorage\ngStorage.js" />
+    <Content Include="Assets\components\ngstorage\ngStorage.min.js" />
+    <Content Include="Assets\components\ngstorage\package.js" />
+    <Content Include="Assets\components\oclazyload\ocLazyLoad.js" />
+    <Content Include="Assets\components\oclazyload\ocLazyLoad.min.js" />
+    <Content Include="Assets\css\ace-fonts.css" />
+    <Content Include="Assets\css\ace-skins.min.css" />
+    <Content Include="Assets\css\ace.min.css" />
+    <Content Include="Assets\css\bootstrap.min.css" />
+    <Content Include="Assets\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Assets\images\loading.gif" />
+    <Content Include="Assets\js\ace-elements.js" />
+    <Content Include="Assets\js\ace-elements.min.js" />
+    <Content Include="Assets\js\ace-small.js" />
+    <Content Include="Assets\js\ace-small.min.js" />
+    <Content Include="Assets\js\app.js" />
+    <Content Include="Assets\js\controllers\main.js" />
+    <Content Include="Assets\js\controllers\pages\buttons.js" />
+    <Content Include="Assets\js\controllers\pages\calendar.js" />
+    <Content Include="Assets\js\controllers\pages\content-slider.js" />
+    <Content Include="Assets\js\controllers\pages\dashboard.js" />
+    <Content Include="Assets\js\controllers\pages\dropzone.js" />
+    <Content Include="Assets\js\controllers\pages\elements.js" />
+    <Content Include="Assets\js\controllers\pages\form-elements.js" />
+    <Content Include="Assets\js\controllers\pages\form-wizard.js" />
+    <Content Include="Assets\js\controllers\pages\gallery.js" />
+    <Content Include="Assets\js\controllers\pages\nestable.js" />
+    <Content Include="Assets\js\controllers\pages\profile.js" />
+    <Content Include="Assets\js\controllers\pages\table.js" />
+    <Content Include="Assets\js\controllers\pages\treeview.js" />
+    <Content Include="Assets\js\controllers\pages\widgets.js" />
+    <Content Include="Assets\js\controllers\pages\wysiwyg.js" />
+    <Content Include="Assets\js\directives\ace.js" />
+    <Content Include="Assets\js\directives\vendor.js" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="favicon.ico" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Global.asax" />
+    <Content Include="Content\Site.css" />
+    <Content Include="Scripts\Controllers\ConnectController.js" />
+    <Content Include="Scripts\Controllers\MainController.js" />
+    <Content Include="Scripts\Directives\ace.js" />
+    <Content Include="Scripts\Common\AuthInterceptor.js" />
+    <Content Include="Scripts\Services\MainServices.js" />
+    <Content Include="Scripts\Common\Shared.js" />
+    <Content Include="Scripts\Services\SettingServices.js" />
+    <Content Include="Scripts\Services\Shared.js" />
+    <Content Include="Scripts\SleemonPortal.js" />
+    <Content Include="Templates\menu.html" />
+    <Content Include="tests\layouts\default\partial\breadcrumbs.html" />
+    <Content Include="tests\layouts\default\partial\footer.html" />
+    <Content Include="tests\layouts\default\partial\navbar.html" />
+    <Content Include="tests\layouts\default\partial\navbar\messages.html" />
+    <Content Include="tests\layouts\default\partial\navbar\notifications.html" />
+    <Content Include="tests\layouts\default\partial\navbar\tasks.html" />
+    <Content Include="tests\layouts\default\partial\navbar\user_menu.html" />
+    <Content Include="tests\layouts\default\partial\settings.html" />
+    <Content Include="tests\layouts\default\partial\sidebar.html" />
+    <Content Include="tests\layouts\default\partial\sidebar\item.html" />
+    <Content Include="tests\layouts\default\partial\sidebar\shortcuts.html" />
+    <Content Include="tests\pages\buttons.html" />
+    <Content Include="tests\pages\calendar.html" />
+    <Content Include="tests\pages\content-slider.html" />
+    <Content Include="tests\pages\dashboard.html" />
+    <Content Include="tests\pages\dropzone.html" />
+    <Content Include="tests\pages\elements.html" />
+    <Content Include="tests\pages\error.html" />
+    <Content Include="tests\pages\form-elements.html" />
+    <Content Include="tests\pages\form-wizard.html" />
+    <Content Include="tests\pages\gallery.html" />
+    <Content Include="tests\pages\nestable-list.html" />
+    <Content Include="tests\pages\partial\dashboard\comments.html" />
+    <Content Include="tests\pages\partial\dashboard\conversations.html" />
+    <Content Include="tests\pages\partial\dashboard\domains.html" />
+    <Content Include="tests\pages\partial\dashboard\infobox.html" />
+    <Content Include="tests\pages\partial\dashboard\members.html" />
+    <Content Include="tests\pages\partial\dashboard\tasks.html" />
+    <Content Include="tests\pages\profile.html" />
+    <Content Include="tests\pages\table.html" />
+    <Content Include="tests\pages\treeview.html" />
+    <Content Include="tests\pages\typography.html" />
+    <Content Include="tests\pages\widgets.html" />
+    <Content Include="tests\pages\wysiwyg.html" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="data\datatables\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\RoutesDemo\Four.cshtml" />
+    <Content Include="Views\RoutesDemo\One.cshtml" />
+    <Content Include="Views\RoutesDemo\Three.cshtml" />
+    <Content Include="Views\RoutesDemo\Two.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Sleemon.Core\Sleemon.Core.csproj">
+      <Project>{1df7a7f7-5b7c-4a39-b7c1-ee25231c0581}</Project>
+      <Name>Sleemon.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sleemon.Data\Sleemon.Data.csproj">
+      <Project>{b9fad20f-ca92-4812-836d-66fff949b94c}</Project>
+      <Name>Sleemon.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sleemon.Service\Sleemon.Service.csproj">
+      <Project>{9cfadc39-e855-437e-b8a1-60f1bf90682e}</Project>
+      <Name>Sleemon.Service</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Assets\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Assets\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Assets\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="Assets\fonts\OpenSans-300.woff" />
+    <Content Include="Assets\fonts\OpenSans-400.woff" />
+    <Content Include="Assets\fonts\readme" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\components\font-awesome\fonts\fontawesome-webfont.eot" />
+    <Content Include="Assets\components\font-awesome\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Assets\components\font-awesome\fonts\fontawesome-webfont.woff" />
+    <Content Include="Assets\components\font-awesome\fonts\fontawesome-webfont.woff2" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="data\common\navbar.json" />
+    <Content Include="data\common\states.json" />
+    <Content Include="data\pages\dashboard\comments.json" />
+    <Content Include="data\pages\dashboard\conversations.json" />
+    <Content Include="data\pages\dashboard\domains.json" />
+    <Content Include="data\pages\dashboard\members.json" />
+    <Content Include="data\pages\dashboard\stats1.json" />
+    <Content Include="data\pages\dashboard\stats2.json" />
+    <Content Include="data\pages\dashboard\tasks.json" />
+    <Content Include="data\pages\gallery\photos.json" />
+    <Content Include="data\pages\profile\activity.json" />
+    <Content Include="data\pages\table\domains.json" />
+    <Content Include="data\pages\widgets\members.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Home\Navigator.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Home\Sidebar.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Setting\Connect.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\components\angular-tree-control\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Assets\components\angular-tree-control\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Assets\components\angular-tree-control\fonts\glyphicons-halflings-regular.woff" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>17589</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:60448/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>
