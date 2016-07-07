@@ -10,14 +10,6 @@ namespace Sleemon.Portal.Controllers
 {
     public class SettingController : BaseController
     {
-        private readonly ImplementServiceClient serviceClient;
-
-        public SettingController([Dependency] ImplementServiceClient serviceClient)
-            : base()
-        {
-            this.serviceClient = serviceClient;
-        }
-
         [HttpGet]
         public ActionResult Connect()
         {
@@ -27,7 +19,7 @@ namespace Sleemon.Portal.Controllers
         [HttpGet]
         public JsonContentAction GetDepartment()
         {
-            var departments = this.serviceClient.Request<IDepartmentService, IList<Data.DepartmentModel>>((service) => service.GetAllActivedDepartment());
+            var departments = base.ServiceClient.Request<IDepartmentService, IList<Data.DepartmentModel>>((service) => service.GetAllActivedDepartment());
 
             return new JsonContentAction(
                    new { records = departments, rootIds = SiteConfiguration.RootDepartments });
@@ -36,7 +28,7 @@ namespace Sleemon.Portal.Controllers
         [HttpGet]
         public JsonContentAction GetUserListByDepartment(int departmentId)
         {
-            var userList = this.serviceClient.Request<IUserService, IList<Data.User>>((service) => service.GetUsersForDepartment(departmentId));
+            var userList = base.ServiceClient.Request<IUserService, IList<Data.User>>((service) => service.GetUsersForDepartment(departmentId));
 
             return new JsonContentAction(userList);
         }

@@ -1,4 +1,5 @@
-﻿using Sleemon.Portal.Core;
+﻿using Microsoft.Practices.Unity;
+using Sleemon.Portal.Core;
 using System.Web.Mvc;
 
 namespace Sleemon.Portal.Controllers
@@ -7,5 +8,7 @@ namespace Sleemon.Portal.Controllers
     [SiteAuthorize]
     public class BaseController : Controller
     {
+        [Dependency]
+        public ImplementServiceClient ServiceClient { get; set; }
     }
 }

@@ -12,13 +12,11 @@ namespace Sleemon.Portal.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly ImplementServiceClient serviceClient;
+        [Dependency]
+        public ImplementServiceClient ServiceClient { get; set; }
 
-        public AccountController([Dependency] ImplementServiceClient serviceClient)
-            : base()
-        {
-            this.serviceClient = serviceClient;
-        }
+        public AccountController()
+            : base() {}
 
         [HttpGet]
         public ActionResult Login(string returnUrl)
@@ -32,7 +30,7 @@ namespace Sleemon.Portal.Controllers
         [ValidateAntiForgeryToken]
         public void Login(Models.User user)
         {
-            var userModel = this.serviceClient.Request<IUserService, Data.User>((service) => service.GetUserById(user.UserUniqueId));
+            var userModel = this.ServiceClient.Request<IUserService, Data.User>((service) => service.GetUserById(user.UserUniqueId));
 
             var userIdentity = new ClaimsIdentity(new Claim[]
             {
