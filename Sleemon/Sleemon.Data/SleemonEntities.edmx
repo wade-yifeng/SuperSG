@@ -115,6 +115,7 @@ warning 6005: The data type 'hierarchyid' is currently not supported for the tar
           <Property Name="LastUpdateUser" Type="nvarchar" MaxLength="200" Nullable="false" />
           <Property Name="LastUpdateTime" Type="datetime" Nullable="false" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="No" Type="tinyint" Nullable="false" />
         </EntityType>
         <EntityType Name="GroupTask">
           <Key>
@@ -128,6 +129,7 @@ warning 6005: The data type 'hierarchyid' is currently not supported for the tar
           <Property Name="LastUpdateUser" Type="nvarchar" MaxLength="200" Nullable="false" />
           <Property Name="LastUpdateTime" Type="datetime" Nullable="false" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="OnOff" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Keyword">
           <Key>
@@ -196,14 +198,14 @@ warning 6005: The data type 'hierarchyid' is currently not supported for the tar
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Subject" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="Description" Type="nvarchar(max)" />
-          <Property Name="FilePath" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="FileType" Type="tinyint" Nullable="false" />
-          <Property Name="ChapterId" Type="int" Nullable="false" />
-          <Property Name="No" Type="int" Nullable="false" />
           <Property Name="LastUpdateUser" Type="nvarchar" MaxLength="200" Nullable="false" />
           <Property Name="LastUpdateTime" Type="datetime" Nullable="false" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="FileType" Type="tinyint" Nullable="false" />
+          <Property Name="ChapterId" Type="int" Nullable="false" />
+          <Property Name="No" Type="int" Nullable="false" />
+          <Property Name="Content" Type="nvarchar(max)" Nullable="false" />
         </EntityType>
         <EntityType Name="MessageDispatch">
           <Key>
@@ -280,6 +282,8 @@ warning 6005: The data type 'hierarchyid' is currently not supported for the tar
           <Property Name="UserUniqueId" Type="nvarchar" MaxLength="200" Nullable="false" />
           <Property Name="EnterpriseNoticeId" Type="int" Nullable="false" />
           <Property Name="ProsDateTime" Type="datetime" Nullable="false" />
+          <Property Name="GroupKey" Type="uniqueidentifier" />
+          <Property Name="Status" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Questionnaire">
           <Key>
@@ -288,6 +292,22 @@ warning 6005: The data type 'hierarchyid' is currently not supported for the tar
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Title" Type="nvarchar" MaxLength="200" Nullable="false" />
           <Property Name="Description" Type="nvarchar" MaxLength="500" />
+          <Property Name="LastUpdateUser" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="LastUpdateTime" Type="datetime" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="GroupKey" Type="uniqueidentifier" />
+          <Property Name="Status" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="QuestionnaireChoice">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="QuestionnaireItemId" Type="int" Nullable="false" />
+          <Property Name="No" Type="smallint" Nullable="false" />
+          <Property Name="Choice" Type="tinyint" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="1000" Nullable="false" />
+          <Property Name="Image" Type="nvarchar" MaxLength="500" />
           <Property Name="LastUpdateUser" Type="nvarchar" MaxLength="200" Nullable="false" />
           <Property Name="LastUpdateTime" Type="datetime" Nullable="false" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
@@ -303,6 +323,9 @@ warning 6005: The data type 'hierarchyid' is currently not supported for the tar
           <Property Name="LastUpdateUser" Type="nvarchar" MaxLength="200" Nullable="false" />
           <Property Name="LastUpdateTime" Type="datetime" Nullable="false" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="No" Type="smallint" Nullable="false" />
+          <Property Name="Image" Type="nvarchar" MaxLength="500" />
+          <Property Name="Category" Type="tinyint" Nullable="false" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -426,7 +449,6 @@ warning 6005: The data type 'hierarchyid' is currently not supported for the tar
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Subject" Type="nvarchar" MaxLength="200" Nullable="false" />
           <Property Name="Description" Type="nvarchar" MaxLength="2000" />
-          <Property Name="Avatar" Type="nvarchar" MaxLength="100" />
           <Property Name="Location" Type="nvarchar" MaxLength="500" Nullable="false" />
           <Property Name="StartFrom" Type="datetime" Nullable="false" />
           <Property Name="EndTo" Type="datetime" Nullable="false" />
@@ -436,10 +458,11 @@ warning 6005: The data type 'hierarchyid' is currently not supported for the tar
           <Property Name="IsCheckInNeeded" Type="bit" Nullable="false" />
           <Property Name="CheckInQRCode" Type="nvarchar" MaxLength="1000" />
           <Property Name="GroupKey" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="Status" Type="int" Nullable="false" />
+          <Property Name="Status" Type="tinyint" Nullable="false" />
           <Property Name="LastUpdateUser" Type="nvarchar" MaxLength="200" Nullable="false" />
           <Property Name="LastUpdateTime" Type="datetime" Nullable="false" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="Avatar" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="TrainingTask">
           <Key>
@@ -568,8 +591,12 @@ warning 6005: The data type 'hierarchyid' is currently not supported for the tar
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserUniqueId" Type="nvarchar" MaxLength="200" Nullable="false" />
-          <Property Name="Question" Type="nvarchar" MaxLength="500" Nullable="false" />
-          <Property Name="Description" Type="nvarchar" MaxLength="4000" />
+          <Property Name="Title" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="Question" Type="nvarchar" MaxLength="500" />
+          <Property Name="AskTime" Type="datetime" Nullable="false" />
+          <Property Name="Replier" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="Answer" Type="nvarchar" MaxLength="4000" Nullable="false" />
+          <Property Name="AnswerTime" Type="datetime" Nullable="false" />
           <Property Name="Status" Type="tinyint" Nullable="false" />
           <Property Name="LastUpdateTime" Type="datetime" Nullable="false" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
@@ -579,22 +606,11 @@ warning 6005: The data type 'hierarchyid' is currently not supported for the tar
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TaskId" Type="int" Nullable="false" />
           <Property Name="UserUniqueId" Type="nvarchar" MaxLength="200" Nullable="false" />
-          <Property Name="QuestionnaireItemId" Type="int" Nullable="false" />
-          <Property Name="MyRate" Type="float" Nullable="false" />
+          <Property Name="QuestionnaireChoiceId" Type="int" Nullable="false" />
+          <Property Name="MyAnswer" Type="nvarchar" MaxLength="500" Nullable="false" />
           <Property Name="LastUpdateTime" Type="date" Nullable="false" />
-          <Property Name="IsActive" Type="bit" Nullable="false" />
-        </EntityType>
-        <EntityType Name="UserQuestionReply">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="UserQuestionId" Type="int" Nullable="false" />
-          <Property Name="Answer" Type="nvarchar" MaxLength="4000" Nullable="false" />
-          <Property Name="Replier" Type="nvarchar" MaxLength="200" Nullable="false" />
-          <Property Name="IsRightAnswer" Type="bit" Nullable="false" />
-          <Property Name="LastUpdateTime" Type="datetime" Nullable="false" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="UserRole">
@@ -840,6 +856,18 @@ warning 6005: The data type 'hierarchyid' is currently not supported for the tar
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_QuestionnaireChoice_QuestionnaireItemId_QuestionnaireItem_Id">
+          <End Role="QuestionnaireItem" Type="Self.QuestionnaireItem" Multiplicity="1" />
+          <End Role="QuestionnaireChoice" Type="Self.QuestionnaireChoice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="QuestionnaireItem">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="QuestionnaireChoice">
+              <PropertyRef Name="QuestionnaireItemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_QuestionnaireItem_Questionnaire">
           <End Role="Questionnaire" Type="Self.Questionnaire" Multiplicity="1" />
           <End Role="QuestionnaireItem" Type="Self.QuestionnaireItem" Multiplicity="*" />
@@ -1020,27 +1048,27 @@ warning 6005: The data type 'hierarchyid' is currently not supported for the tar
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_UserQuestionnaireAnswer_QuestionnaireItem">
-          <End Role="QuestionnaireItem" Type="Self.QuestionnaireItem" Multiplicity="1" />
+        <Association Name="FK_UserQuestionnaireAnswer_QuestionnaireChoiceId_QuestionnaireChoice">
+          <End Role="QuestionnaireChoice" Type="Self.QuestionnaireChoice" Multiplicity="1" />
           <End Role="UserQuestionnaireAnswer" Type="Self.UserQuestionnaireAnswer" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="QuestionnaireItem">
+            <Principal Role="QuestionnaireChoice">
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="UserQuestionnaireAnswer">
-              <PropertyRef Name="QuestionnaireItemId" />
+              <PropertyRef Name="QuestionnaireChoiceId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_UserQuestionReply_UserQuestion">
-          <End Role="UserQuestion" Type="Self.UserQuestion" Multiplicity="1" />
-          <End Role="UserQuestionReply" Type="Self.UserQuestionReply" Multiplicity="*" />
+        <Association Name="FK_UserQuestionnaireAnswer_TaskId_Task_Id">
+          <End Role="Task" Type="Self.Task" Multiplicity="1" />
+          <End Role="UserQuestionnaireAnswer" Type="Self.UserQuestionnaireAnswer" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="UserQuestion">
+            <Principal Role="Task">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="UserQuestionReply">
-              <PropertyRef Name="UserQuestionId" />
+            <Dependent Role="UserQuestionnaireAnswer">
+              <PropertyRef Name="TaskId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1096,8 +1124,14 @@ warning 6005: The data type 'hierarchyid' is currently not supported for the tar
           <Parameter Name="userTaskId" Type="int" Mode="In" />
           <Parameter Name="userId" Type="nvarchar" Mode="In" />
         </Function>
+        <Function Name="spDeleteCourseById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="courseId" Type="int" Mode="In" />
+        </Function>
         <Function Name="spDeleteExamById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="examId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spDeleteQuestionnaireById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="questionnaireId" Type="int" Mode="In" />
         </Function>
         <Function Name="spGetBroadcastMessage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="maxCount" Type="int" Mode="In" />
@@ -1157,6 +1191,7 @@ warning 6005: The data type 'hierarchyid' is currently not supported for the tar
           <EntitySet Name="ProsComments" EntityType="Self.ProsComments" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProsEnterpriseNotice" EntityType="Self.ProsEnterpriseNotice" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Questionnaire" EntityType="Self.Questionnaire" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="QuestionnaireChoice" EntityType="Self.QuestionnaireChoice" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="QuestionnaireItem" EntityType="Self.QuestionnaireItem" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RolePermission" EntityType="Self.RolePermission" Schema="dbo" store:Type="Tables" />
@@ -1179,7 +1214,6 @@ warning 6005: The data type 'hierarchyid' is currently not supported for the tar
           <EntitySet Name="UserPointRecord" EntityType="Self.UserPointRecord" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserQuestion" EntityType="Self.UserQuestion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserQuestionnaireAnswer" EntityType="Self.UserQuestionnaireAnswer" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="UserQuestionReply" EntityType="Self.UserQuestionReply" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserRole" EntityType="Self.UserRole" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserStorePatrol" EntityType="Self.UserStorePatrol" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserTask" EntityType="Self.UserTask" Schema="dbo" store:Type="Tables" />
@@ -1248,6 +1282,10 @@ warning 6005: The data type 'hierarchyid' is currently not supported for the tar
             <End Role="EnterpriseNotice" EntitySet="EnterpriseNotice" />
             <End Role="ProsEnterpriseNotice" EntitySet="ProsEnterpriseNotice" />
           </AssociationSet>
+          <AssociationSet Name="FK_QuestionnaireChoice_QuestionnaireItemId_QuestionnaireItem_Id" Association="Self.FK_QuestionnaireChoice_QuestionnaireItemId_QuestionnaireItem_Id">
+            <End Role="QuestionnaireItem" EntitySet="QuestionnaireItem" />
+            <End Role="QuestionnaireChoice" EntitySet="QuestionnaireChoice" />
+          </AssociationSet>
           <AssociationSet Name="FK_QuestionnaireItem_Questionnaire" Association="Self.FK_QuestionnaireItem_Questionnaire">
             <End Role="Questionnaire" EntitySet="Questionnaire" />
             <End Role="QuestionnaireItem" EntitySet="QuestionnaireItem" />
@@ -1308,13 +1346,13 @@ warning 6005: The data type 'hierarchyid' is currently not supported for the tar
             <End Role="Task" EntitySet="Task" />
             <End Role="UserExamAnswer" EntitySet="UserExamAnswer" />
           </AssociationSet>
-          <AssociationSet Name="FK_UserQuestionnaireAnswer_QuestionnaireItem" Association="Self.FK_UserQuestionnaireAnswer_QuestionnaireItem">
-            <End Role="QuestionnaireItem" EntitySet="QuestionnaireItem" />
+          <AssociationSet Name="FK_UserQuestionnaireAnswer_QuestionnaireChoiceId_QuestionnaireChoice" Association="Self.FK_UserQuestionnaireAnswer_QuestionnaireChoiceId_QuestionnaireChoice">
+            <End Role="QuestionnaireChoice" EntitySet="QuestionnaireChoice" />
             <End Role="UserQuestionnaireAnswer" EntitySet="UserQuestionnaireAnswer" />
           </AssociationSet>
-          <AssociationSet Name="FK_UserQuestionReply_UserQuestion" Association="Self.FK_UserQuestionReply_UserQuestion">
-            <End Role="UserQuestion" EntitySet="UserQuestion" />
-            <End Role="UserQuestionReply" EntitySet="UserQuestionReply" />
+          <AssociationSet Name="FK_UserQuestionnaireAnswer_TaskId_Task_Id" Association="Self.FK_UserQuestionnaireAnswer_TaskId_Task_Id">
+            <End Role="Task" EntitySet="Task" />
+            <End Role="UserQuestionnaireAnswer" EntitySet="UserQuestionnaireAnswer" />
           </AssociationSet>
           <AssociationSet Name="FK_UserRole_Role" Association="Self.FK_UserRole_Role">
             <End Role="Role" EntitySet="Role" />
@@ -1338,14 +1376,38 @@ warning 6005: The data type 'hierarchyid' is currently not supported for the tar
     <edmx:ConceptualModels>
       <Schema Namespace="SleemonModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="SleemonEntities" annotation:LazyLoadingEnabled="false">
+          <FunctionImport Name="spCommitEntireExam" ReturnType="Collection(SleemonModel.spCommitEntireExam_Result)">
+            <Parameter Name="userTaskId" Mode="In" Type="Int32" />
+            <Parameter Name="userId" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spDeleteCourseById">
+          <Parameter Name="courseId" Mode="In" Type="Int32" />
+          </FunctionImport>
           <FunctionImport Name="spDeleteExamById">
           <Parameter Name="examId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spDeleteQuestionnaireById">
+          <Parameter Name="questionnaireId" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spGetBroadcastMessage" ReturnType="Collection(SleemonModel.spGetBroadcastMessage_Result)">
           <Parameter Name="maxCount" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="spGetStorePatrolList" ReturnType="Collection(SleemonModel.spGetStorePatrolList_Result)">
+            <Parameter Name="pageIndex" Mode="In" Type="Int32" />
+            <Parameter Name="pageSize" Mode="In" Type="Int32" />
+            <Parameter Name="userName" Mode="In" Type="String" />
+            <Parameter Name="startFrom" Mode="In" Type="DateTime" />
+            <Parameter Name="endTo" Mode="In" Type="DateTime" />
+          </FunctionImport>
           <FunctionImport Name="spGetUserPermissions" ReturnType="Collection(SleemonModel.spGetUserPermissions_Result)">
           <Parameter Name="userUniqueId" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spPointStorePatrol">
+            <Parameter Name="isPass" Mode="In" Type="Boolean" />
+            <Parameter Name="userStorePatrol" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spSaveTrainingDetail">
+          <Parameter Name="training" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="spSyncDepartment">
           <Parameter Name="department" Mode="In" Type="String" />
@@ -1356,28 +1418,10 @@ warning 6005: The data type 'hierarchyid' is currently not supported for the tar
           <FunctionImport Name="spSyncUserDepartment">
           <Parameter Name="userDepartment" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="spCommitEntireExam" ReturnType="Collection(SleemonModel.spCommitEntireExam_Result)">
-            <Parameter Name="userTaskId" Mode="In" Type="Int32" />
-            <Parameter Name="userId" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="spPointStorePatrol">
-            <Parameter Name="isPass" Mode="In" Type="Boolean" />
-            <Parameter Name="userStorePatrol" Mode="In" Type="String" />
-          </FunctionImport>
           <FunctionImport Name="spUpdateTrainingUsersJoinState">
             <Parameter Name="trainingId" Mode="In" Type="Int32" />
             <Parameter Name="userJoinStatusEntities" Mode="In" Type="String" />
             <Parameter Name="lastUpdateUser" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="spGetStorePatrolList" ReturnType="Collection(SleemonModel.spGetStorePatrolList_Result)">
-            <Parameter Name="pageIndex" Mode="In" Type="Int32" />
-            <Parameter Name="pageSize" Mode="In" Type="Int32" />
-            <Parameter Name="userName" Mode="In" Type="String" />
-            <Parameter Name="startFrom" Mode="In" Type="DateTime" />
-            <Parameter Name="endTo" Mode="In" Type="DateTime" />
-          </FunctionImport>
-          <FunctionImport Name="spSaveTrainingDetail">
-          <Parameter Name="training" Mode="In" Type="String" />
           </FunctionImport>
           <EntitySet Name="C__RefactorLog" EntityType="SleemonModel.C__RefactorLog" />
           <EntitySet Name="ConsEnterpriseNotice" EntityType="SleemonModel.ConsEnterpriseNotice" />
@@ -1402,6 +1446,7 @@ warning 6005: The data type 'hierarchyid' is currently not supported for the tar
           <EntitySet Name="ProsComments" EntityType="SleemonModel.ProsComments" />
           <EntitySet Name="ProsEnterpriseNotice" EntityType="SleemonModel.ProsEnterpriseNotice" />
           <EntitySet Name="Questionnaire" EntityType="SleemonModel.Questionnaire" />
+          <EntitySet Name="QuestionnaireChoice" EntityType="SleemonModel.QuestionnaireChoice" />
           <EntitySet Name="QuestionnaireItem" EntityType="SleemonModel.QuestionnaireItem" />
           <EntitySet Name="Role" EntityType="SleemonModel.Role" />
           <EntitySet Name="RolePermission" EntityType="SleemonModel.RolePermission" />
@@ -1424,7 +1469,6 @@ warning 6005: The data type 'hierarchyid' is currently not supported for the tar
           <EntitySet Name="UserPointRecord" EntityType="SleemonModel.UserPointRecord" />
           <EntitySet Name="UserQuestion" EntityType="SleemonModel.UserQuestion" />
           <EntitySet Name="UserQuestionnaireAnswer" EntityType="SleemonModel.UserQuestionnaireAnswer" />
-          <EntitySet Name="UserQuestionReply" EntityType="SleemonModel.UserQuestionReply" />
           <EntitySet Name="UserRole" EntityType="SleemonModel.UserRole" />
           <EntitySet Name="UserStorePatrol" EntityType="SleemonModel.UserStorePatrol" />
           <EntitySet Name="UserTask" EntityType="SleemonModel.UserTask" />
@@ -1517,8 +1561,12 @@ warning 6005: The data type 'hierarchyid' is currently not supported for the tar
             <End Role="Questionnaire" EntitySet="Questionnaire" />
             <End Role="TaskQuestionnaire" EntitySet="TaskQuestionnaire" />
           </AssociationSet>
-          <AssociationSet Name="FK_UserQuestionnaireAnswer_QuestionnaireItem" Association="SleemonModel.FK_UserQuestionnaireAnswer_QuestionnaireItem">
+          <AssociationSet Name="FK_QuestionnaireChoice_QuestionnaireItemId_QuestionnaireItem_Id" Association="SleemonModel.FK_QuestionnaireChoice_QuestionnaireItemId_QuestionnaireItem_Id">
             <End Role="QuestionnaireItem" EntitySet="QuestionnaireItem" />
+            <End Role="QuestionnaireChoice" EntitySet="QuestionnaireChoice" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserQuestionnaireAnswer_QuestionnaireChoiceId_QuestionnaireChoice" Association="SleemonModel.FK_UserQuestionnaireAnswer_QuestionnaireChoiceId_QuestionnaireChoice">
+            <End Role="QuestionnaireChoice" EntitySet="QuestionnaireChoice" />
             <End Role="UserQuestionnaireAnswer" EntitySet="UserQuestionnaireAnswer" />
           </AssociationSet>
           <AssociationSet Name="FK_RolePermission_Role" Association="SleemonModel.FK_RolePermission_Role">
@@ -1557,6 +1605,10 @@ warning 6005: The data type 'hierarchyid' is currently not supported for the tar
             <End Role="Task" EntitySet="Task" />
             <End Role="UserExamAnswer" EntitySet="UserExamAnswer" />
           </AssociationSet>
+          <AssociationSet Name="FK_UserQuestionnaireAnswer_TaskId_Task_Id" Association="SleemonModel.FK_UserQuestionnaireAnswer_TaskId_Task_Id">
+            <End Role="Task" EntitySet="Task" />
+            <End Role="UserQuestionnaireAnswer" EntitySet="UserQuestionnaireAnswer" />
+          </AssociationSet>
           <AssociationSet Name="FK_UserTask_Task" Association="SleemonModel.FK_UserTask_Task">
             <End Role="Task" EntitySet="Task" />
             <End Role="UserTask" EntitySet="UserTask" />
@@ -1573,11 +1625,14 @@ warning 6005: The data type 'hierarchyid' is currently not supported for the tar
             <End Role="UserComments" EntitySet="UserComments" />
             <End Role="UserComments1" EntitySet="UserComments" />
           </AssociationSet>
-          <AssociationSet Name="FK_UserQuestionReply_UserQuestion" Association="SleemonModel.FK_UserQuestionReply_UserQuestion">
-            <End Role="UserQuestion" EntitySet="UserQuestion" />
-            <End Role="UserQuestionReply" EntitySet="UserQuestionReply" />
-          </AssociationSet>
-          </EntityContainer>
+        </EntityContainer>
+        <ComplexType Name="spCommitEntireExam_Result">
+          <Property Type="Double" Name="UserScore" Nullable="true" />
+          <Property Type="Int32" Name="Point" Nullable="true" />
+          <Property Type="Int32" Name="ProductAbility" Nullable="false" />
+          <Property Type="Int32" Name="SalesAbility" Nullable="false" />
+          <Property Type="Int32" Name="ExhibitAbility" Nullable="false" />
+        </ComplexType>
         <ComplexType Name="spGetBroadcastMessage_Result">
           <Property Type="Int32" Name="Id" Nullable="true" />
           <Property Type="Byte" Name="MessageType" Nullable="true" />
@@ -1587,26 +1642,6 @@ warning 6005: The data type 'hierarchyid' is currently not supported for the tar
           <Property Type="String" Name="Subject" Nullable="true" MaxLength="250" />
           <Property Type="String" Name="Summary" Nullable="true" />
           <Property Type="String" Name="AvatarPath" Nullable="true" />
-        </ComplexType>
-        <ComplexType Name="spGetUserPermissions_Result">
-          <Property Type="Int32" Name="Id" Nullable="false" />
-          <Property Type="Int32" Name="ParentId" Nullable="false" />
-          <Property Type="String" Name="Name" Nullable="false" MaxLength="50" />
-          <Property Type="String" Name="Url" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="IconClass" Nullable="true" MaxLength="50" />
-          <Property Type="Boolean" Name="IsMenu" Nullable="false" />
-          <Property Type="String" Name="Description" Nullable="false" MaxLength="500" />
-          <Property Type="Int32" Name="Sort" Nullable="false" />
-          <Property Type="Boolean" Name="IsActive" Nullable="false" />
-          <Property Type="DateTime" Name="LastUpdateTime" Nullable="false" Precision="23" />
-          <Property Type="String" Name="LastUpdateUser" Nullable="false" MaxLength="200" />
-        </ComplexType>
-        <ComplexType Name="spCommitEntireExam_Result">
-          <Property Type="Double" Name="UserScore" Nullable="true" />
-          <Property Type="Int32" Name="Point" Nullable="true" />
-          <Property Type="Int32" Name="ProductAbility" Nullable="false" />
-          <Property Type="Int32" Name="SalesAbility" Nullable="false" />
-          <Property Type="Int32" Name="ExhibitAbility" Nullable="false" />
         </ComplexType>
         <ComplexType Name="spGetStorePatrolList_Result">
           <Property Type="Int32" Name="TaskId" Nullable="false" />
@@ -1621,6 +1656,19 @@ warning 6005: The data type 'hierarchyid' is currently not supported for the tar
           <Property Type="Byte" Name="Status" Nullable="false" />
           <Property Type="Int32" Name="TotalCount" Nullable="true" />
           <Property Type="Int32" Name="UserTaskId" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="spGetUserPermissions_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="Int32" Name="ParentId" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Url" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="IconClass" Nullable="true" MaxLength="50" />
+          <Property Type="Boolean" Name="IsMenu" Nullable="false" />
+          <Property Type="String" Name="Description" Nullable="false" MaxLength="500" />
+          <Property Type="Int32" Name="Sort" Nullable="false" />
+          <Property Type="Boolean" Name="IsActive" Nullable="false" />
+          <Property Type="DateTime" Name="LastUpdateTime" Nullable="false" Precision="23" />
+          <Property Type="String" Name="LastUpdateUser" Nullable="false" MaxLength="200" />
         </ComplexType>
         <EntityType Name="C__RefactorLog">
           <Key>
@@ -1740,6 +1788,7 @@ warning 6005: The data type 'hierarchyid' is currently not supported for the tar
           <Property Name="LastUpdateUser" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="LastUpdateTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="No" Type="Byte" Nullable="false" />
           <NavigationProperty Name="GroupTask" Relationship="SleemonModel.FK_GroupSubTask_GroupTask" FromRole="GroupSubTask" ToRole="GroupTask" />
           <NavigationProperty Name="Task" Relationship="SleemonModel.FK_GroupSubTask_Task" FromRole="GroupSubTask" ToRole="Task" />
         </EntityType>
@@ -1755,6 +1804,7 @@ warning 6005: The data type 'hierarchyid' is currently not supported for the tar
           <Property Name="LastUpdateUser" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="LastUpdateTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="OnOff" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="GroupSubTask" Relationship="SleemonModel.FK_GroupSubTask_GroupTask" FromRole="GroupTask" ToRole="GroupSubTask" />
         </EntityType>
         <EntityType Name="Keyword">
@@ -1831,14 +1881,14 @@ warning 6005: The data type 'hierarchyid' is currently not supported for the tar
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Subject" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="FilePath" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="FileType" Type="Byte" Nullable="false" />
-          <Property Name="ChapterId" Type="Int32" Nullable="false" />
-          <Property Name="No" Type="Int32" Nullable="false" />
           <Property Name="LastUpdateUser" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="LastUpdateTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="FileType" Type="Byte" Nullable="false" />
+          <Property Name="ChapterId" Type="Int32" Nullable="false" />
+          <Property Name="No" Type="Int32" Nullable="false" />
+          <Property Name="Content" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="LearningChapter" Relationship="SleemonModel.FK_LearningFile_ChapterId_LearningChapter_Id" FromRole="LearningFile" ToRole="LearningChapter" />
           <NavigationProperty Name="TaskExam" Relationship="SleemonModel.FK_TaskExam_LearningFile" FromRole="LearningFile" ToRole="TaskExam" />
           <NavigationProperty Name="TaskLearning" Relationship="SleemonModel.FK_TaskLearning_LearningFile" FromRole="LearningFile" ToRole="TaskLearning" />
@@ -1924,6 +1974,8 @@ warning 6005: The data type 'hierarchyid' is currently not supported for the tar
           <Property Name="UserUniqueId" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="EnterpriseNoticeId" Type="Int32" Nullable="false" />
           <Property Name="ProsDateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="GroupKey" Type="Guid" />
+          <Property Name="Status" Type="Int32" Nullable="false" />
           <NavigationProperty Name="EnterpriseNotice" Relationship="SleemonModel.FK_ProsEnterpriseNotice_EnterpriseNoticeId_EnterpriseNotice" FromRole="ProsEnterpriseNotice" ToRole="EnterpriseNotice" />
         </EntityType>
         <EntityType Name="Questionnaire">
@@ -1936,8 +1988,26 @@ warning 6005: The data type 'hierarchyid' is currently not supported for the tar
           <Property Name="LastUpdateUser" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="LastUpdateTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="GroupKey" Type="Guid" />
+          <Property Name="Status" Type="Int32" Nullable="false" />
           <NavigationProperty Name="QuestionnaireItem" Relationship="SleemonModel.FK_QuestionnaireItem_Questionnaire" FromRole="Questionnaire" ToRole="QuestionnaireItem" />
           <NavigationProperty Name="TaskQuestionnaire" Relationship="SleemonModel.FK_TaskQuestionnaire_Questionnaire" FromRole="Questionnaire" ToRole="TaskQuestionnaire" />
+        </EntityType>
+        <EntityType Name="QuestionnaireChoice">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="QuestionnaireItemId" Type="Int32" Nullable="false" />
+          <Property Name="No" Type="Int16" Nullable="false" />
+          <Property Name="Choice" Type="Byte" Nullable="false" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="Image" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="LastUpdateUser" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="LastUpdateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="QuestionnaireItem" Relationship="SleemonModel.FK_QuestionnaireChoice_QuestionnaireItemId_QuestionnaireItem_Id" FromRole="QuestionnaireChoice" ToRole="QuestionnaireItem" />
+          <NavigationProperty Name="UserQuestionnaireAnswer" Relationship="SleemonModel.FK_UserQuestionnaireAnswer_QuestionnaireChoiceId_QuestionnaireChoice" FromRole="QuestionnaireChoice" ToRole="UserQuestionnaireAnswer" />
         </EntityType>
         <EntityType Name="QuestionnaireItem">
           <Key>
@@ -1950,8 +2020,11 @@ warning 6005: The data type 'hierarchyid' is currently not supported for the tar
           <Property Name="LastUpdateUser" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="LastUpdateTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="No" Type="Int16" Nullable="false" />
+          <Property Name="Image" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Category" Type="Byte" Nullable="false" />
           <NavigationProperty Name="Questionnaire" Relationship="SleemonModel.FK_QuestionnaireItem_Questionnaire" FromRole="QuestionnaireItem" ToRole="Questionnaire" />
-          <NavigationProperty Name="UserQuestionnaireAnswer" Relationship="SleemonModel.FK_UserQuestionnaireAnswer_QuestionnaireItem" FromRole="QuestionnaireItem" ToRole="UserQuestionnaireAnswer" />
+          <NavigationProperty Name="QuestionnaireChoice" Relationship="SleemonModel.FK_QuestionnaireChoice_QuestionnaireItemId_QuestionnaireItem_Id" FromRole="QuestionnaireItem" ToRole="QuestionnaireChoice" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -2043,6 +2116,7 @@ warning 6005: The data type 'hierarchyid' is currently not supported for the tar
           <NavigationProperty Name="TaskQuestionnaire" Relationship="SleemonModel.FK_TaskQuestionnaire_Task" FromRole="Task" ToRole="TaskQuestionnaire" />
           <NavigationProperty Name="TrainingTask" Relationship="SleemonModel.FK_TrainingTask_Task" FromRole="Task" ToRole="TrainingTask" />
           <NavigationProperty Name="UserExamAnswer" Relationship="SleemonModel.FK_UserExamAnswer_TaskId_Task_Id" FromRole="Task" ToRole="UserExamAnswer" />
+          <NavigationProperty Name="UserQuestionnaireAnswer" Relationship="SleemonModel.FK_UserQuestionnaireAnswer_TaskId_Task_Id" FromRole="Task" ToRole="UserQuestionnaireAnswer" />
           <NavigationProperty Name="UserTask" Relationship="SleemonModel.FK_UserTask_Task" FromRole="Task" ToRole="UserTask" />
         </EntityType>
         <EntityType Name="TaskExam">
@@ -2096,7 +2170,6 @@ warning 6005: The data type 'hierarchyid' is currently not supported for the tar
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Subject" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="Description" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
-          <Property Name="Avatar" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Location" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="StartFrom" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="EndTo" Type="DateTime" Nullable="false" Precision="3" />
@@ -2106,10 +2179,11 @@ warning 6005: The data type 'hierarchyid' is currently not supported for the tar
           <Property Name="IsCheckInNeeded" Type="Boolean" Nullable="false" />
           <Property Name="CheckInQRCode" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
           <Property Name="GroupKey" Type="Guid" Nullable="false" />
-          <Property Name="Status" Type="Int32" Nullable="false" />
+          <Property Name="Status" Type="Byte" Nullable="false" />
           <Property Name="LastUpdateUser" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="LastUpdateTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="Avatar" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="TrainingTask" Relationship="SleemonModel.FK_TrainingTask_Training" FromRole="Training" ToRole="TrainingTask" />
           <NavigationProperty Name="UserTraining" Relationship="SleemonModel.FK_UserTraining_Training" FromRole="Training" ToRole="UserTraining" />
         </EntityType>
@@ -2249,37 +2323,29 @@ warning 6005: The data type 'hierarchyid' is currently not supported for the tar
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="UserUniqueId" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="Question" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="Description" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Question" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="AskTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Replier" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Answer" Type="String" Nullable="false" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="AnswerTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Status" Type="Byte" Nullable="false" />
           <Property Name="LastUpdateTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="UserQuestionReply" Relationship="SleemonModel.FK_UserQuestionReply_UserQuestion" FromRole="UserQuestion" ToRole="UserQuestionReply" />
         </EntityType>
         <EntityType Name="UserQuestionnaireAnswer">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TaskId" Type="Int32" Nullable="false" />
           <Property Name="UserUniqueId" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="QuestionnaireItemId" Type="Int32" Nullable="false" />
-          <Property Name="MyRate" Type="Double" Nullable="false" />
+          <Property Name="QuestionnaireChoiceId" Type="Int32" Nullable="false" />
+          <Property Name="MyAnswer" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="LastUpdateTime" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="QuestionnaireItem" Relationship="SleemonModel.FK_UserQuestionnaireAnswer_QuestionnaireItem" FromRole="UserQuestionnaireAnswer" ToRole="QuestionnaireItem" />
-        </EntityType>
-        <EntityType Name="UserQuestionReply">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserQuestionId" Type="Int32" Nullable="false" />
-          <Property Name="Answer" Type="String" Nullable="false" MaxLength="4000" FixedLength="false" Unicode="true" />
-          <Property Name="Replier" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="IsRightAnswer" Type="Boolean" Nullable="false" />
-          <Property Name="LastUpdateTime" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="IsActive" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="UserQuestion" Relationship="SleemonModel.FK_UserQuestionReply_UserQuestion" FromRole="UserQuestionReply" ToRole="UserQuestion" />
+          <NavigationProperty Name="QuestionnaireChoice" Relationship="SleemonModel.FK_UserQuestionnaireAnswer_QuestionnaireChoiceId_QuestionnaireChoice" FromRole="UserQuestionnaireAnswer" ToRole="QuestionnaireChoice" />
+          <NavigationProperty Name="Task" Relationship="SleemonModel.FK_UserQuestionnaireAnswer_TaskId_Task_Id" FromRole="UserQuestionnaireAnswer" ToRole="Task" />
         </EntityType>
         <EntityType Name="UserRole">
           <Key>
@@ -2600,15 +2666,27 @@ warning 6005: The data type 'hierarchyid' is currently not supported for the tar
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_UserQuestionnaireAnswer_QuestionnaireItem">
+        <Association Name="FK_QuestionnaireChoice_QuestionnaireItemId_QuestionnaireItem_Id">
           <End Type="SleemonModel.QuestionnaireItem" Role="QuestionnaireItem" Multiplicity="1" />
-          <End Type="SleemonModel.UserQuestionnaireAnswer" Role="UserQuestionnaireAnswer" Multiplicity="*" />
+          <End Type="SleemonModel.QuestionnaireChoice" Role="QuestionnaireChoice" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="QuestionnaireItem">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="UserQuestionnaireAnswer">
+            <Dependent Role="QuestionnaireChoice">
               <PropertyRef Name="QuestionnaireItemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserQuestionnaireAnswer_QuestionnaireChoiceId_QuestionnaireChoice">
+          <End Type="SleemonModel.QuestionnaireChoice" Role="QuestionnaireChoice" Multiplicity="1" />
+          <End Type="SleemonModel.UserQuestionnaireAnswer" Role="UserQuestionnaireAnswer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="QuestionnaireChoice">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserQuestionnaireAnswer">
+              <PropertyRef Name="QuestionnaireChoiceId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2720,6 +2798,18 @@ warning 6005: The data type 'hierarchyid' is currently not supported for the tar
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_UserQuestionnaireAnswer_TaskId_Task_Id">
+          <End Type="SleemonModel.Task" Role="Task" Multiplicity="1" />
+          <End Type="SleemonModel.UserQuestionnaireAnswer" Role="UserQuestionnaireAnswer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Task">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserQuestionnaireAnswer">
+              <PropertyRef Name="TaskId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_UserTask_Task">
           <End Type="SleemonModel.Task" Role="Task" Multiplicity="1" />
           <End Type="SleemonModel.UserTask" Role="UserTask" Multiplicity="*" />
@@ -2768,25 +2858,26 @@ warning 6005: The data type 'hierarchyid' is currently not supported for the tar
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_UserQuestionReply_UserQuestion">
-          <End Type="SleemonModel.UserQuestion" Role="UserQuestion" Multiplicity="1" />
-          <End Type="SleemonModel.UserQuestionReply" Role="UserQuestionReply" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="UserQuestion">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="UserQuestionReply">
-              <PropertyRef Name="UserQuestionId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="SleemonModelStoreContainer" CdmEntityContainer="SleemonEntities">
+          <FunctionImportMapping FunctionImportName="spCommitEntireExam" FunctionName="SleemonModel.Store.spCommitEntireExam">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SleemonModel.spCommitEntireExam_Result">
+                <ScalarProperty Name="UserScore" ColumnName="UserScore" />
+                <ScalarProperty Name="Point" ColumnName="Point" />
+                <ScalarProperty Name="ProductAbility" ColumnName="ProductAbility" />
+                <ScalarProperty Name="SalesAbility" ColumnName="SalesAbility" />
+                <ScalarProperty Name="ExhibitAbility" ColumnName="ExhibitAbility" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spDeleteCourseById" FunctionName="SleemonModel.Store.spDeleteCourseById" />
           <FunctionImportMapping FunctionImportName="spDeleteExamById" FunctionName="SleemonModel.Store.spDeleteExamById" />
+          <FunctionImportMapping FunctionImportName="spDeleteQuestionnaireById" FunctionName="SleemonModel.Store.spDeleteQuestionnaireById" />
           <FunctionImportMapping FunctionImportName="spGetBroadcastMessage" FunctionName="SleemonModel.Store.spGetBroadcastMessage">
             <ResultMapping>
               <ComplexTypeMapping TypeName="SleemonModel.spGetBroadcastMessage_Result">
@@ -2798,6 +2889,24 @@ warning 6005: The data type 'hierarchyid' is currently not supported for the tar
                 <ScalarProperty Name="Subject" ColumnName="Subject" />
                 <ScalarProperty Name="Summary" ColumnName="Summary" />
                 <ScalarProperty Name="AvatarPath" ColumnName="AvatarPath" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spGetStorePatrolList" FunctionName="SleemonModel.Store.spGetStorePatrolList">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SleemonModel.spGetStorePatrolList_Result">
+                <ScalarProperty Name="TaskId" ColumnName="TaskId" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="StartFrom" ColumnName="StartFrom" />
+                <ScalarProperty Name="EndTo" ColumnName="EndTo" />
+                <ScalarProperty Name="Point" ColumnName="Point" />
+                <ScalarProperty Name="OverduePoint" ColumnName="OverduePoint" />
+                <ScalarProperty Name="BelongTo" ColumnName="BelongTo" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="TotalCount" ColumnName="TotalCount" />
+                <ScalarProperty Name="UserTaskId" ColumnName="UserTaskId" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -2818,41 +2927,12 @@ warning 6005: The data type 'hierarchyid' is currently not supported for the tar
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spPointStorePatrol" FunctionName="SleemonModel.Store.spPointStorePatrol" />
+          <FunctionImportMapping FunctionImportName="spSaveTrainingDetail" FunctionName="SleemonModel.Store.spSaveTrainingDetail" />
           <FunctionImportMapping FunctionImportName="spSyncDepartment" FunctionName="SleemonModel.Store.spSyncDepartment" />
           <FunctionImportMapping FunctionImportName="spSyncUser" FunctionName="SleemonModel.Store.spSyncUser" />
           <FunctionImportMapping FunctionImportName="spSyncUserDepartment" FunctionName="SleemonModel.Store.spSyncUserDepartment" />
-          <FunctionImportMapping FunctionImportName="spCommitEntireExam" FunctionName="SleemonModel.Store.spCommitEntireExam">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="SleemonModel.spCommitEntireExam_Result">
-                <ScalarProperty Name="UserScore" ColumnName="UserScore" />
-                <ScalarProperty Name="Point" ColumnName="Point" />
-                <ScalarProperty Name="ProductAbility" ColumnName="ProductAbility" />
-                <ScalarProperty Name="SalesAbility" ColumnName="SalesAbility" />
-                <ScalarProperty Name="ExhibitAbility" ColumnName="ExhibitAbility" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="spPointStorePatrol" FunctionName="SleemonModel.Store.spPointStorePatrol" />
           <FunctionImportMapping FunctionImportName="spUpdateTrainingUsersJoinState" FunctionName="SleemonModel.Store.spUpdateTrainingUsersJoinState" />
-          <FunctionImportMapping FunctionImportName="spGetStorePatrolList" FunctionName="SleemonModel.Store.spGetStorePatrolList">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="SleemonModel.spGetStorePatrolList_Result">
-                <ScalarProperty Name="TaskId" ColumnName="TaskId" />
-                <ScalarProperty Name="Title" ColumnName="Title" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="StartFrom" ColumnName="StartFrom" />
-                <ScalarProperty Name="EndTo" ColumnName="EndTo" />
-                <ScalarProperty Name="Point" ColumnName="Point" />
-                <ScalarProperty Name="OverduePoint" ColumnName="OverduePoint" />
-                <ScalarProperty Name="BelongTo" ColumnName="BelongTo" />
-                <ScalarProperty Name="UserName" ColumnName="UserName" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="TotalCount" ColumnName="TotalCount" />
-                <ScalarProperty Name="UserTaskId" ColumnName="UserTaskId" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="spSaveTrainingDetail" FunctionName="SleemonModel.Store.spSaveTrainingDetail" />
           <EntitySetMapping Name="C__RefactorLog">
             <EntityTypeMapping TypeName="SleemonModel.C__RefactorLog">
               <MappingFragment StoreEntitySet="__RefactorLog">
@@ -2960,6 +3040,7 @@ warning 6005: The data type 'hierarchyid' is currently not supported for the tar
           <EntitySetMapping Name="GroupSubTask">
             <EntityTypeMapping TypeName="SleemonModel.GroupSubTask">
               <MappingFragment StoreEntitySet="GroupSubTask">
+                <ScalarProperty Name="No" ColumnName="No" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
                 <ScalarProperty Name="LastUpdateTime" ColumnName="LastUpdateTime" />
                 <ScalarProperty Name="LastUpdateUser" ColumnName="LastUpdateUser" />
@@ -2973,6 +3054,7 @@ warning 6005: The data type 'hierarchyid' is currently not supported for the tar
           <EntitySetMapping Name="GroupTask">
             <EntityTypeMapping TypeName="SleemonModel.GroupTask">
               <MappingFragment StoreEntitySet="GroupTask">
+                <ScalarProperty Name="OnOff" ColumnName="OnOff" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
                 <ScalarProperty Name="LastUpdateTime" ColumnName="LastUpdateTime" />
                 <ScalarProperty Name="LastUpdateUser" ColumnName="LastUpdateUser" />
@@ -3053,14 +3135,14 @@ warning 6005: The data type 'hierarchyid' is currently not supported for the tar
           <EntitySetMapping Name="LearningFile">
             <EntityTypeMapping TypeName="SleemonModel.LearningFile">
               <MappingFragment StoreEntitySet="LearningFile">
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="LastUpdateTime" ColumnName="LastUpdateTime" />
-                <ScalarProperty Name="LastUpdateUser" ColumnName="LastUpdateUser" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
                 <ScalarProperty Name="No" ColumnName="No" />
                 <ScalarProperty Name="ChapterId" ColumnName="ChapterId" />
                 <ScalarProperty Name="FileType" ColumnName="FileType" />
-                <ScalarProperty Name="FilePath" ColumnName="FilePath" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="LastUpdateTime" ColumnName="LastUpdateTime" />
+                <ScalarProperty Name="LastUpdateUser" ColumnName="LastUpdateUser" />
                 <ScalarProperty Name="Subject" ColumnName="Subject" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
@@ -3141,6 +3223,8 @@ warning 6005: The data type 'hierarchyid' is currently not supported for the tar
           <EntitySetMapping Name="ProsEnterpriseNotice">
             <EntityTypeMapping TypeName="SleemonModel.ProsEnterpriseNotice">
               <MappingFragment StoreEntitySet="ProsEnterpriseNotice">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="GroupKey" ColumnName="GroupKey" />
                 <ScalarProperty Name="ProsDateTime" ColumnName="ProsDateTime" />
                 <ScalarProperty Name="EnterpriseNoticeId" ColumnName="EnterpriseNoticeId" />
                 <ScalarProperty Name="UserUniqueId" ColumnName="UserUniqueId" />
@@ -3151,6 +3235,8 @@ warning 6005: The data type 'hierarchyid' is currently not supported for the tar
           <EntitySetMapping Name="Questionnaire">
             <EntityTypeMapping TypeName="SleemonModel.Questionnaire">
               <MappingFragment StoreEntitySet="Questionnaire">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="GroupKey" ColumnName="GroupKey" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
                 <ScalarProperty Name="LastUpdateTime" ColumnName="LastUpdateTime" />
                 <ScalarProperty Name="LastUpdateUser" ColumnName="LastUpdateUser" />
@@ -3160,9 +3246,27 @@ warning 6005: The data type 'hierarchyid' is currently not supported for the tar
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="QuestionnaireChoice">
+            <EntityTypeMapping TypeName="SleemonModel.QuestionnaireChoice">
+              <MappingFragment StoreEntitySet="QuestionnaireChoice">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="LastUpdateTime" ColumnName="LastUpdateTime" />
+                <ScalarProperty Name="LastUpdateUser" ColumnName="LastUpdateUser" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Choice" ColumnName="Choice" />
+                <ScalarProperty Name="No" ColumnName="No" />
+                <ScalarProperty Name="QuestionnaireItemId" ColumnName="QuestionnaireItemId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="QuestionnaireItem">
             <EntityTypeMapping TypeName="SleemonModel.QuestionnaireItem">
               <MappingFragment StoreEntitySet="QuestionnaireItem">
+                <ScalarProperty Name="Category" ColumnName="Category" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="No" ColumnName="No" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
                 <ScalarProperty Name="LastUpdateTime" ColumnName="LastUpdateTime" />
                 <ScalarProperty Name="LastUpdateUser" ColumnName="LastUpdateUser" />
@@ -3300,6 +3404,7 @@ warning 6005: The data type 'hierarchyid' is currently not supported for the tar
           <EntitySetMapping Name="Training">
             <EntityTypeMapping TypeName="SleemonModel.Training">
               <MappingFragment StoreEntitySet="Training">
+                <ScalarProperty Name="Avatar" ColumnName="Avatar" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
                 <ScalarProperty Name="LastUpdateTime" ColumnName="LastUpdateTime" />
                 <ScalarProperty Name="LastUpdateUser" ColumnName="LastUpdateUser" />
@@ -3313,7 +3418,6 @@ warning 6005: The data type 'hierarchyid' is currently not supported for the tar
                 <ScalarProperty Name="EndTo" ColumnName="EndTo" />
                 <ScalarProperty Name="StartFrom" ColumnName="StartFrom" />
                 <ScalarProperty Name="Location" ColumnName="Location" />
-                <ScalarProperty Name="Avatar" ColumnName="Avatar" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Subject" ColumnName="Subject" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
@@ -3456,8 +3560,12 @@ warning 6005: The data type 'hierarchyid' is currently not supported for the tar
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
                 <ScalarProperty Name="LastUpdateTime" ColumnName="LastUpdateTime" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="AnswerTime" ColumnName="AnswerTime" />
+                <ScalarProperty Name="Answer" ColumnName="Answer" />
+                <ScalarProperty Name="Replier" ColumnName="Replier" />
+                <ScalarProperty Name="AskTime" ColumnName="AskTime" />
                 <ScalarProperty Name="Question" ColumnName="Question" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="UserUniqueId" ColumnName="UserUniqueId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
@@ -3468,22 +3576,10 @@ warning 6005: The data type 'hierarchyid' is currently not supported for the tar
               <MappingFragment StoreEntitySet="UserQuestionnaireAnswer">
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
                 <ScalarProperty Name="LastUpdateTime" ColumnName="LastUpdateTime" />
-                <ScalarProperty Name="MyRate" ColumnName="MyRate" />
-                <ScalarProperty Name="QuestionnaireItemId" ColumnName="QuestionnaireItemId" />
+                <ScalarProperty Name="MyAnswer" ColumnName="MyAnswer" />
+                <ScalarProperty Name="QuestionnaireChoiceId" ColumnName="QuestionnaireChoiceId" />
                 <ScalarProperty Name="UserUniqueId" ColumnName="UserUniqueId" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="UserQuestionReply">
-            <EntityTypeMapping TypeName="SleemonModel.UserQuestionReply">
-              <MappingFragment StoreEntitySet="UserQuestionReply">
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="LastUpdateTime" ColumnName="LastUpdateTime" />
-                <ScalarProperty Name="IsRightAnswer" ColumnName="IsRightAnswer" />
-                <ScalarProperty Name="Replier" ColumnName="Replier" />
-                <ScalarProperty Name="Answer" ColumnName="Answer" />
-                <ScalarProperty Name="UserQuestionId" ColumnName="UserQuestionId" />
+                <ScalarProperty Name="TaskId" ColumnName="TaskId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -3543,7 +3639,7 @@ warning 6005: The data type 'hierarchyid' is currently not supported for the tar
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          </EntityContainerMapping>
+        </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>

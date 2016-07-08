@@ -1,6 +1,6 @@
 ﻿namespace Sleemon.Data
 {
-    public class TrainingTaskItemSearchContext
+    public class TaskItemSearchContext
     {
         public int TaskCategory { get; set; }
 

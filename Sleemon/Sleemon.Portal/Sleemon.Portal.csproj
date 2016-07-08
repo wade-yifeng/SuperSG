@@ -192,8 +192,27 @@
     <Compile Include="Common\SiteConfiguration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\CourseController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controllers\EnterpriseNoticeController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controllers\ExamController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controllers\GroupTaskController.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MenuController.cs" />
+    <Compile Include="Controllers\QuestionnaireController.cs" />
+    <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Controllers\SettingController.cs" />
+    <Compile Include="Controllers\StorePatrolController.cs" />
+    <Compile Include="Controllers\TaskController.cs" />
+    <Compile Include="Controllers\TrainingController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Core\HandleErrorsAttribute.cs" />
     <Compile Include="Core\ImplementServiceClient.cs" />
     <Compile Include="Core\JsonContentAction.cs" />
@@ -460,6 +479,10 @@
     <Content Include="Views\RoutesDemo\Two.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Sleemon.Common\Sleemon.Common.csproj">
+      <Project>{0096F288-F543-44D3-940D-733AFA509A86}</Project>
+      <Name>Sleemon.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Sleemon.Core\Sleemon.Core.csproj">
       <Project>{1df7a7f7-5b7c-4a39-b7c1-ee25231c0581}</Project>
       <Name>Sleemon.Core</Name>
@@ -525,6 +548,43 @@
     <Content Include="Assets\components\angular-tree-control\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Assets\components\angular-tree-control\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Assets\components\angular-tree-control\fonts\glyphicons-halflings-regular.woff" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Course\CourseCreate.cshtml" />
+    <Content Include="Views\Course\CourseDetail.cshtml" />
+    <Content Include="Views\Course\CourseList.cshtml" />
+    <Content Include="Views\EnterpriseNotice\Create.cshtml" />
+    <Content Include="Views\EnterpriseNotice\NoticeList.cshtml" />
+    <Content Include="Views\Exam\ExamCreate.cshtml" />
+    <Content Include="Views\Exam\ExamDetail.cshtml" />
+    <Content Include="Views\Exam\ExamList.cshtml" />
+    <Content Include="Views\GroupTask\GroupTaskCreate.cshtml" />
+    <Content Include="Views\GroupTask\GroupTaskDetail.cshtml" />
+    <Content Include="Views\GroupTask\GroupTaskList.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Questionnaire\QuestionnaireCreate.cshtml" />
+    <Content Include="Views\Questionnaire\QuestionnaireDetail.cshtml" />
+    <Content Include="Views\Questionnaire\QuestionnaireList.cshtml" />
+    <Content Include="Views\Role\RoleList.cshtml" />
+    <Content Include="Views\Role\RolePermission.cshtml" />
+    <Content Include="Views\StorePatrol\PointStorePatrol.cshtml" />
+    <Content Include="Views\StorePatrol\StorePatrolEdit.cshtml" />
+    <Content Include="Views\StorePatrol\StorePatrolList.cshtml" />
+    <Content Include="Views\StorePatrol\UserStorePatrolList.cshtml" />
+    <Content Include="Views\Task\ExamTaskCreate.cshtml" />
+    <Content Include="Views\Task\ExamTaskDetail.cshtml" />
+    <Content Include="Views\Task\LearningTaskCreate.cshtml" />
+    <Content Include="Views\Task\LearningTaskDetail.cshtml" />
+    <Content Include="Views\Task\QuestionnaireTaskCreate.cshtml" />
+    <Content Include="Views\Task\QuestionnaireTaskDetail.cshtml" />
+    <Content Include="Views\Task\TaskList.cshtml" />
+    <Content Include="Views\Training\ConfirmUserJoin.cshtml" />
+    <Content Include="Views\Training\TaskItemList.cshtml" />
+    <Content Include="Views\Training\TrainingCreate.cshtml" />
+    <Content Include="Views\Training\TrainingDetail.cshtml" />
+    <Content Include="Views\Training\TrainingList.cshtml" />
+    <Content Include="Views\User\UserList.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -17,9 +17,9 @@
     {
         private readonly ISleemonEntities _invoicingEntities;
 
-        public TrainingService([Dependency] ISleemonEntities entity)
+        public TrainingService()
         {
-            this._invoicingEntities = entity;
+            this._invoicingEntities = new SleemonEntities();
         }
 
         public IList<UserTrainingPreviewModel> GetUserTrainingList(bool isAll, string userId, int pageIndex, int pageSize)
@@ -68,11 +68,18 @@
         public UserTrainingDetailModel GetUserTrainingDetail(string userId, int trainingId)
         {
             var result =
-                this._invoicingEntities.UserTraining.Include(p => p.Training).Include(p => p.Training.TrainingTask).FirstOrDefault(
-                    p => p.IsActive && p.Training.IsActive && p.UserUniqueId == userId && p.TrainingId == trainingId);
+                this._invoicingEntities
+                    .UserTraining
+                    .Include(p => p.Training)
+                    .Include(p => p.Training.TrainingTask)
+                    .FirstOrDefault(
+                        p => p.IsActive && p.Training.IsActive && p.UserUniqueId == userId && p.TrainingId == trainingId);
 
             var userTaskEntity =
-                this._invoicingEntities.UserTask.Include(p => p.Task).Where(p => p.Task.IsActive && p.IsActive && p.UserUniqueId == userId)
+                this._invoicingEntities
+                    .UserTask
+                    .Include(p => p.Task)
+                    .Where(p => p.Task.IsActive && p.IsActive && p.UserUniqueId == userId)
                     .ToList();
 
             if (result == null) return null;
@@ -98,8 +105,7 @@
                     UserTaskId = p.Id,
                     Title = p.Task.Title,
                     TaskCategory = p.Task.TaskCategory,
-                    Status = p.Status,
-                    //No = 
+                    UserTaskStatus = p.Status,
                 }).ToList()
             };
         }
@@ -329,7 +335,7 @@ WHERE [UserTraining].[IsActive] = 1
                         SalesAbility = p.SalesAbility,
                         ExhibitAbility = p.ExhibitAbility,
                         BelongTo = p.BelongTo,
-                        TaskStatus = p.Status,
+                        Status = p.Status,
                         LastUpdateUser = p.LastUpdateUser,
                         LastUpdateUserName = taskLastUpdateUser == null ? string.Empty : taskLastUpdateUser.Name,
                         LastUpdateTime = p.LastUpdateTime,

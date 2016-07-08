@@ -44,6 +44,7 @@
     <Compile Include="Contracts\IEnterpriseNoticeService.cs" />
     <Compile Include="Contracts\IDepartmentService.cs" />
     <Compile Include="Contracts\IExamService.cs" />
+    <Compile Include="Contracts\IGroupTaskService.cs" />
     <Compile Include="Contracts\ILearningFileService.cs" />
     <Compile Include="Contracts\IPermissionService.cs" />
     <Compile Include="Contracts\IQuestionnaireService.cs" />

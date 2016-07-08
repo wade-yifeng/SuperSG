@@ -44,6 +44,10 @@ namespace Sleemon.Data
     	}
         [Column(Name = "IsActive", DbType = "Boolean", CanBeNull = false)]
         public bool IsActive { get; set; }
+        [Column(Name = "GroupKey", DbType = "Guid")]
+        public Nullable<System.Guid> GroupKey { get; set; }
+        [Column(Name = "Status", DbType = "Int32", CanBeNull = false)]
+        public int Status { get; set; }
     
         private ICollection<QuestionnaireItem> _QuestionnaireItem;
         public virtual ICollection<QuestionnaireItem> QuestionnaireItem

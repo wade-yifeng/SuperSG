@@ -1,0 +1,202 @@
+﻿@using Sleemon.Common
+@using Sleemon.Data
+@model Sleemon.Data.TaskDetailsModel
+
+@if (Model != null)
+{
+    var file = Model.LearningFiles == null || !Model.LearningFiles.Any() ? new LearningFileDetailModel() : Model.LearningFiles.FirstOrDefault();
+    var endDate = Model.EndTo.HasValue ? Model.EndTo.Value.ToShortDateString() : string.Empty;
+    <form class="form-horizontal" action='@Url.Action("CreateTask", "Task")' method="post" id="taskForm">
+        <div class=" notice_edit col-xs-12 col-sm-8">
+            <div class="widget-box">
+                <div class="widget-header">
+                    <h4 class="widget-title">新增/编辑 课程学习任务</h4>
+                </div>
+
+                <div class="widget-body">
+                    <div class="widget-main">
+                        <fieldset>
+                            <legend>基本信息</legend>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">任务名称：</label>
+                                <div class="col-sm-10">
+                                    <input name="Title" class="form-control" data-val-required="请输入任务名称" value="@Model.Title"/>
+                                    <input type="hidden" name="TaskId" id="taskId" value="@Model.TaskId" />
+                                    <input type="hidden" name="Status" id="taskStatus" value="@Model.Status" />
+                                    <input type="hidden" name="TaskCategory" value="@((byte)TaskCategory.Learning)" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">描述：</label>
+                                <div class="col-sm-10">
+                                    <textarea name="Description" class="form-control" rows="2" cols="20">@Model.Description</textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">起始时间：</label>
+                                <div class="col-sm-10">
+                                    <textarea name="StartFrom" class="form-control" rows="2" cols="20">@Model.StartFrom.ToShortDateString()</textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">结束时间：</label>
+                                <div class="col-sm-10">
+                                    <textarea name="EndTo" class="form-control" rows="2" cols="20">@endDate</textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">奖励积分：</label>
+                                <div class="col-sm-10">
+                                    <input name="Point" class="form-control" data-val-required="请输入奖励积分" value="@Model.Point"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">过期完成积分：</label>
+                                <div class="col-sm-10">
+                                    <input name="OverduePoint" class="form-control" data-val-required="请输入过期完成积分" value="@Model.OverduePoint" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">产品能力值：</label>
+                                <div class="col-sm-10">
+                                    <input name="ProductAbility" class="form-control" data-val-required="请输入产品能力值" value="@Model.ProductAbility">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">销售能力值：</label>
+                                <div class="col-sm-10">
+                                    <input name="SalesAbility" class="form-control" data-val-required="请输入销售能力值" value="@Model.SalesAbility" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">陈列能力值：</label>
+                                <div class="col-sm-10">
+                                    <input name="ExhibitAbility" class="form-control" data-val-required="请输入陈列能力值" value="@Model.ExhibitAbility" />
+                                </div>
+                            </div>
+                            <div class="form-group taskItem">
+                                <label class="col-sm-2 control-label taskItem_index">课程：</label>
+                                <div class="col-sm-10 input-group">
+                                    <input class="form-control" type="text" data-val-required="请选择课程" data-val="true" value="@file.Subject" />
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-default btn-lg chooseLearning" data-toggle="modal" data-target="#chooseModal">选择</button>
+                                    </span>
+                                    <input name="LearningFiles[0].Id" type="hidden" value="@file.Id" />
+                                </div>
+                            </div>
+                        </fieldset>
+                        <div class="form-actions center" id="submitDiv">
+                            <button type="submit" id="btnSave" class="btn btn-sm btn-success">
+                                保存
+                                <i class="ace-icon fa fa-arrow-right icon-on-right bigger-110"></i>
+                            </button>
+                            <button type="submit" id="btnPublish" class="btn btn-sm btn-success">
+                                发布
+                                <i class="ace-icon fa fa-arrow-right icon-on-right bigger-110"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+}
+else
+{
+    <div>课程学习任务不存在</div>
+}
+
+<div class="modal fade" id="chooseModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+            </div>
+            <div class="modal-body">
+                ...
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" id="btnSaveItem">保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" language="javascript">
+    var fileTitle;
+    var fileId;
+
+    $(document)
+        .ready(function () {
+            $('div.widget-main')
+                .on('click',
+                    '.chooseLearning',
+                    function () {
+                        fileTitle = $(this).parent().prev();
+                        fileId = $(this).parent().next();
+                        showModal();
+                    });
+
+            function showModal() {
+                $('#myModalLabel')[0].innerText = "选择课程资料";
+
+                var data = {
+                    PageIndex: 1,
+                    PageSize: 15,
+                    TaskCategory: 2
+                };
+                $.ajax({
+                    async: false,
+                    type: "GET",
+                    url: "/Training/GetTaskItemList",
+                    cache: false,
+                    data: data,
+                    success: function (data) {
+                        $(".modal-body").html(data);
+                    },
+                    error: function (err) {
+                        console.log(err);
+                    }
+                });
+            }
+
+            $('#btnSaveItem')
+                .click(function () {
+                    var item = $("input[name='ItemId']:checked");
+                    fileId.val(item.val());
+                    fileTitle.val(item.parent().next()[0].innerText);
+                    $('#chooseModal').modal('hide');
+                });
+
+            $('#btnSave')
+                .click(function() {
+                    $('#taskStatus').val(1);
+                    submitForm();
+                    return false;
+                });
+
+            $('#btnPublish')
+                .click(function () {
+                    $('#taskStatus').val(2);
+                    submitForm();
+                    return false;
+                });
+
+            function submitForm() {
+                $.ajax({
+                    type: "POST",
+                    url: "/Task/CreateTask",
+                    data: $("#taskForm").serialize(),
+                    cache: false,
+                    success: function (data) {
+                        $(".col-content").html(data);
+                    },
+                    error: function (err) {
+                        return alert('提交失败');
+                    }
+                });
+            }
+        });
+</script>

@@ -1,0 +1,62 @@
+﻿@using Sleemon.Common
+@using Sleemon.Data
+@model ExamDetailModel
+
+
+<div class="notice_edit col-xs-12 col-sm-8">
+    <div class="widget-box">
+        <div class="widget-header">
+            <h4 class="widget-title">试卷详细 - @Model.Title</h4>
+        </div>
+
+        <div class="widget-body">
+            <div class="widget-main">
+                <h4>基本信息</h4>
+                <div>
+                    <label>试卷名称：</label>
+                    @Html.DisplayFor(u => u.Title)
+                </div>
+                <div>
+                    <label>描述：</label>
+                    @Html.DisplayFor(u => u.Description)
+                </div>
+                <div>
+                    <label>总分：</label>
+                    @Html.DisplayFor(u => u.TotalScore)
+                </div>
+                <div>
+                    <label>及格分：</label>
+                    @Html.DisplayFor(u => u.PassingScore)
+                </div>
+                <div>
+                    <h4>试题</h4>
+                    @for (int i = 0; i < Model.Questions.Count; i++)
+                    {
+                        var question = Model.Questions[i];
+                        <div>
+                            @(i+1)、
+                            @Html.DisplayFor(u => question.Question)
+                            (@Sleemon.Common.EnumHelper.GetEnumDescription((ExamQuestionCategory)question.Category) @Html.DisplayFor(u => question.Score)分 答案：@Html.DisplayFor(u => question.CorrectAnswer, new { @class = "form-control" }))
+                        </div>
+                        <div>
+                            @for (int j = 0; j < question.Choices.Count; j++)
+                            {
+                                var choice = question.Choices[j];
+                                <div>
+                                    @(j + 1) ---
+                                    @Html.DisplayFor(u => choice.Description)
+                                    @if (choice.IsAnswer)
+                                    {
+                                        @Html.DisplayFor(u => choice.IsAnswer)
+                                    }
+                                </div>
+                            }
+                        </div>
+                        <br />
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

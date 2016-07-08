@@ -26,8 +26,6 @@ namespace Sleemon.Data
         public string Subject { get; set; }
         [Column(Name = "Description", DbType = "String")]
         public string Description { get; set; }
-        [Column(Name = "Avatar", DbType = "String")]
-        public string Avatar { get; set; }
         [Column(Name = "Location", DbType = "String", CanBeNull = false)]
         public string Location { get; set; }
         [Column(Name = "StartFrom", DbType = "DateTime", CanBeNull = false)]
@@ -82,8 +80,8 @@ namespace Sleemon.Data
         public string CheckInQRCode { get; set; }
         [Column(Name = "GroupKey", DbType = "Guid", CanBeNull = false)]
         public System.Guid GroupKey { get; set; }
-        [Column(Name = "Status", DbType = "Int32", CanBeNull = false)]
-        public int Status { get; set; }
+        [Column(Name = "Status", DbType = "Byte", CanBeNull = false)]
+        public byte Status { get; set; }
         [Column(Name = "LastUpdateUser", DbType = "String", CanBeNull = false)]
         public string LastUpdateUser { get; set; }
         [Column(Name = "LastUpdateTime", DbType = "DateTime", CanBeNull = false)]
@@ -102,6 +100,8 @@ namespace Sleemon.Data
     	}
         [Column(Name = "IsActive", DbType = "Boolean", CanBeNull = false)]
         public bool IsActive { get; set; }
+        [Column(Name = "Avatar", DbType = "String")]
+        public string Avatar { get; set; }
     
         private ICollection<TrainingTask> _TrainingTask;
         public virtual ICollection<TrainingTask> TrainingTask

@@ -6,13 +6,13 @@
 
     public interface ITaskService
     {
-        IList<UserTaskModel> SearchUserTaskList(string userUnqiueId, byte taskCategory, string input);
+        IList<UserTaskModel> SearchUserTaskList(string userUnqiueId, byte listType, string input);
 
-        IList<UserTaskModel> GetUserTaskList(string userId, byte taskCategory, int pageIndex, int pageSize);
+        IEnumerable<UserTaskInfo> GetUserTaskList(string userId, byte listType, int pageIndex, int pageSize);
 
-        IList<TaskDetailsModel> GetTaskBasicInfoList(TaskBasicInfoSearchContext searchContext, out int totalCount);
+        IList<TaskListModel> GetTaskList(TaskSearchContext search);
 
-        TaskDetailsModel GetTaskBasicInfoDetailById(int taskId);
+        TaskDetailsModel GetTaskDetailById(int taskId);
 
         UserTaskDetailsModel GetUserTaskDetail(int userTaskId);
 
@@ -26,9 +26,9 @@
 
         ExamResultModel CommitEntireExam(string userUniqueId, int userTaskId);
 
-        ResultBase SaveTaskBasicInfo(TaskDetailsModel taskModel);
+        ResultBase SaveTaskDetail(TaskDetailsModel taskModel);
 
-        ResultBase DeleteTaskBasicInfo(int taskId);
+        ResultBase DeleteTaskById(int taskId);
 
         int GetQuestionnaireQuestionCount(int taskId);
 

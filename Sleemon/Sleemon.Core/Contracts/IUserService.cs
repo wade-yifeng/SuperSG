@@ -24,7 +24,7 @@
 
         IList<UserListModel> GetUserList(int pageIndex, int pageSize,string depName, string userName);
 
-        bool SetUserRole(string currentUserId, string userUniqueid, int roleid);
+        ResultBase SetUserRole(string currentUserId, string userUniqueid, int roleid);
 
         ResultBase UpdateUserProfile(UserProfile userProfile);
 

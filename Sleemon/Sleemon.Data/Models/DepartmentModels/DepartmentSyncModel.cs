@@ -1,6 +1,6 @@
 ﻿namespace Sleemon.Data
 {
-    public class DepartmentSyncModel : DepartmentModel
+    public class DepartmentSyncModel : DepartmentBaseModel
     {
         
     }

@@ -71,6 +71,7 @@
     <Compile Include="Services\DepartmentService.cs" />
     <Compile Include="Services\EnterpriseNoticeService.cs" />
     <Compile Include="Services\ExamService.cs" />
+    <Compile Include="Services\GroupTaskService.cs" />
     <Compile Include="Services\LearningFileService.cs" />
     <Compile Include="Services\PermissionService.cs" />
     <Compile Include="Services\QuestionnaireService.cs" />

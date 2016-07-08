@@ -36,6 +36,10 @@ namespace Sleemon.Data
     			}
     		}
     	}
+        [Column(Name = "GroupKey", DbType = "Guid")]
+        public Nullable<System.Guid> GroupKey { get; set; }
+        [Column(Name = "Status", DbType = "Int32", CanBeNull = false)]
+        public int Status { get; set; }
     
         public virtual EnterpriseNotice EnterpriseNotice { get; set; }
     }

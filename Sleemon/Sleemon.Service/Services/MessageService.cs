@@ -12,9 +12,9 @@
     {
         private readonly ISleemonEntities _invoicingEntities;
 
-        public MessageService([Dependency] ISleemonEntities invoicingEntities)
+        public MessageService()
         {
-            this._invoicingEntities = invoicingEntities;
+            this._invoicingEntities = new SleemonEntities();
         }
 
         public IList<MessageViewModel> GetBroadcastMessage(int maxCount)

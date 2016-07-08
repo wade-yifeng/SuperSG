@@ -42,6 +42,8 @@ namespace Sleemon.Data
     	}
         [Column(Name = "IsActive", DbType = "Boolean", CanBeNull = false)]
         public bool IsActive { get; set; }
+        [Column(Name = "No", DbType = "Byte", CanBeNull = false)]
+        public byte No { get; set; }
     
         public virtual GroupTask GroupTask { get; set; }
         public virtual Task Task { get; set; }

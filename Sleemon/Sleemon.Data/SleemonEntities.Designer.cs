@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'C:\Nebula\Project\Sirius\Personal\SA-SSG\Web\Sleemon.Data\SleemonEntities.edmx'. 
+﻿// T4 code generation is enabled for model 'D:\Project\Sleemon\SuperSG\Sleemon\Sleemon.Data\SleemonEntities.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

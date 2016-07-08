@@ -5,7 +5,7 @@
 
     using Sleemon.Common;
 
-    public class TaskBasicInfoSearchContext
+    public class TaskSearchContext
     {
         public string TaskName { get; set; }
 
@@ -26,14 +26,17 @@
         public Expression<Func<Task, bool>> GenerateSearchConditions()
         {
             Expression<Func<Task, bool>> searchConditions = p => p.IsActive;
+            searchConditions = searchConditions.And(p => p.BelongTo == this.BelongTo);
 
             if (!string.IsNullOrEmpty(this.TaskName))
             {
                 searchConditions = searchConditions.And(p => p.Title.Contains(this.TaskName));
             }
 
-            searchConditions = searchConditions.And(p => p.TaskCategory == this.TaskCategory);
-            searchConditions = searchConditions.And(p => p.BelongTo == this.BelongTo);
+            if (this.TaskCategory > 0)
+            {
+                searchConditions = searchConditions.And(p => p.TaskCategory == this.TaskCategory);
+            }
 
             if (this.Status.HasValue)
             {

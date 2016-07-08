@@ -1,0 +1,234 @@
+﻿<!--add by wolfgump 20160521 -->
+@using Sleemon.Data
+@model EnterpriseNoticeSubmitModel
+
+<form id="enterpriseNoticeForm" action='@Url.Action("SubmitEnterpriseNotice","EnterpriseNotice")' method="post">
+<div class="notice_edit col-xs-12 col-sm-8">
+    <div class="widget-box">
+        <div class="widget-header">
+            <h4 class="widget-title">资讯编辑</h4>
+        </div>
+
+        <div class="widget-body">
+            <div class="widget-main">
+                <div>
+                    <label for="form-field-select-1">标题 (必填,最多15个字)</label>
+                    <input name="subject" type="text" class="form-control" id="subject" placeholder="输入标题..." maxlength="15">
+                </div>
+                <hr>
+                <div>
+                    <label for="form-field-select-1">资讯类型</label>
+                    <select name="noticeType" class="form-control" id="noticeType">
+                        <option value="0">-- 请选择 --</option>
+                        <option value="1">企业资讯</option>
+                        <option value="2">活动推广</option>
+                    </select>
+                </div>
+                <hr>
+                <div>
+                    <label for="form-field-select-1">显示类型</label>
+                    <select name="category" class="form-control" id="category">
+                        <option value="0">-- 请选择 --</option>
+                        <option value="1">置顶 (加载到资讯列表最顶端)</option>
+                        <option value="2">滚动 (首页顶部滚动图片)</option>
+                        <option value="3">普通 (加载到资讯列表)</option>
+                    </select>
+                </div>
+                <hr>
+                <div>
+                    <label for="form-field-select-1">封面图片 (请上传600x420像素或相同比例的图片以达到最佳显示效果,图片大小不要超过2MB)</label>
+                    <input type="file" id="id-input-file-2" name="pic" accept=".bmp,.gif,.png,.jpg" />
+                    <input type="hidden"  name="AvatarPath" id="AvatarPath"/>
+                    <span id="AvatarPathSpan"></span>
+                </div>
+                <hr>
+                <div>
+                    <label for="form-field-select-1">摘要 (选填,如果不填写会默认抓取正文前35个字)</label>
+                    <textarea name="summary" class="form-control" id="form-field-8" placeholder="输入摘要..." maxlength="35"></textarea>
+                </div>
+                <hr>
+                <div>
+                    <label for="form-field-select-1">正文</label>
+                    <script id="editor" type="text/plain" style="width:100%;height:500px;"></script>
+                    <input name="context" type="hidden" id="context" />
+                </div>
+                <div class="form-actions center">
+                    <button type="submit" class="btn btn-sm btn-success">
+                        提交
+                        <i class="ace-icon fa fa-arrow-right icon-on-right bigger-110"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</form>
+<div class="notice_preview col-xs-12 col-sm-4">
+    <div class="widget-box">
+        <div class="widget-header">
+            <h4 class="widget-title">资讯详情微信端预览</h4>
+        </div>
+
+        <div class="notice_detail widget-body">
+            <div class="content widget-main">
+
+                <div id="title">5中超夺冠赔率:恒大第1鲁能10</div>
+                <div id="neck">
+                    <div class="time">2016-5-23 22:57:49</div>
+                    <div class="type tag_mid">资讯</div>
+                    <img src="/Assets/images/comments.png">
+                    <span class="comments">23</span>
+                </div>
+                <div id="body">
+                    <img src="/Assets/images/no_notice_avatar.png">
+                    <div id="content"><p>北京时间5月16日消息，2016赛季中超联赛第9轮战罢，博彩公司188金宝博更新了2016赛季中超联赛夺冠赔率，广州恒大以1.95的夺冠赔率排名第1位。江苏苏宁排名第2位，夺冠赔率为3.60，两者的差距较上期有所扩大。上海上港位列第3位，河北华夏幸福排名第4位。上海申花排名第5位，北京国安升至第8位，山东鲁能降至第10位，长春亚泰以501的夺冠赔率垫底。</p><p>中超联赛第9轮过后，广州恒大取得8连胜，连续四轮位居中超积分榜首，并列扩大了积分领先优势。从最新中超夺冠赔率来看，博彩公司188金宝博依然最看好广州恒大的夺冠前景，夺冠赔率为1.95，与上期相比有0.15的变动幅度，有望实现中超六连冠。排名第2位的是引进了特谢拉、拉米雷斯等大牌外援的江苏苏宁，江苏苏宁中超联赛开局六胜三平保持不败，比广州恒大少3分，暂居中超积分榜第2位，夺冠赔率和上期一致，还是3.60。如果广州恒大继续保持连胜势头，江苏苏宁即便继续保持不败，短期内也很难成为中超联赛夺冠的最大热门。</p><p>上赛季中超联赛亚军上海上港的夺冠赔率由上期的4.30调整为本期的4.50，依然位居第3位。中超新军河北华夏幸福引进了拉维奇、热尔维尼奥等大牌球员，前8场中超比赛4胜2平2负（少赛一场），在夺冠赔率榜稳居第4位，夺冠赔率由上期的8.50调整为本期的10.00。上期，上海申花和河南建业并列第5位，夺冠赔率为26.00，本期，上海申花独自排在第5位，夺冠赔率为21.00。河南建业以34.00的夺冠赔率排名第6位。</p></div>
+                </div>
+                <div id="up_and_down">
+                    <div class="up_icon icon"></div>
+                    <div class="up_count count">3</div>
+                    <div class="down_icon icon"></div>
+                    <div class="down_count count">3</div>
+                    <div class="clear"></div>
+                </div>
+                <div class="write_comment">
+                    <textarea placeholder="写下你的评论..."></textarea>
+                    <div class="buttons">
+                        <a class="btn_comment">评论</a>
+                        <a class="btn_cancel">取消</a>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+@{
+    if (Model.Result.StatusCode != -2)
+    {
+       <script type="text/javascript">
+           alert('@Model.Result.Message');
+       </script>  
+    }
+}
+<script type="text/javascript">
+
+    var emptyAvatar = '/Assets/images/no_notice_avatar.png';
+
+    //一次性查找完元素
+    var inputFile = $('#id-input-file-2');
+
+    var subject = $('#subject');
+    var noticeType = $('#noticeType');
+    var avatar = $('#AvatarPath');
+    var context = '';
+
+    var previewSubject = $('#title');
+    var previewNoticeType = $('#neck .type');
+    var previewAvatar = $('#body img').eq(0);
+    var previewContext = $('#content');
+
+    //封面图片上传
+    inputFile.ace_file_input({
+        no_file: '请选择图片 ...',
+        btn_choose: '选择图片',
+        btn_change: '重新选择',
+        droppable: false,
+        style: 'well',
+        thumbnail: 'large',
+        before_remove: function () {
+            avatar.val('');
+            previewAvatar.attr('src', emptyAvatar);
+            return true;
+        }
+    }).on('change', function () {
+        inputFile.wrap("<form id='myupload' action='/EnterpriseNotice/UpLoadImageFile' method='post' enctype='multipart/form-data'></form>");
+        $('#myupload').ajaxSubmit({
+            dataType: 'json',
+            success: function (data) {
+                $("#AvatarPathSpan").html(data.Result.Message);
+                avatar.val(data.filePath);
+                //alert(data.Result.Message);
+                inputFile.unwrap();
+                refreshPreview();
+            },
+            error: function (xhr) {
+                alert('图片上传失败!');
+                inputFile.unwrap();
+            }
+        });
+    });
+
+    //UEditor
+    UE.delEditor('editor');
+    var ue = UE.getEditor('editor');
+    ue.addListener('contentChange', function (editor) {
+        context = ue.getContent();
+        $("#context").val(context);
+        refreshPreview();
+    });
+
+    //通用刷新预览事件
+    function refreshPreview() {
+        console.log('subject:' + subject.val());
+        console.log('type:' + noticeType.val());
+        console.log('avatar:' + avatar.val());
+        console.log('context:' + context);
+
+        previewSubject.text(subject.val() == '' ? '还未输入标题' : subject.val());
+        previewNoticeType.text(noticeType.val() == '0' ? '未选' : getEnumByValue(NoticeType, noticeType.val()).text);
+        previewAvatar.attr('src', avatar.val() == '' ? emptyAvatar : avatar.val());
+        previewContext.html(context == '' ? '还未编辑正文' : context);
+    }
+    subject.change(refreshPreview);
+    noticeType.change(refreshPreview);
+
+    $(document).ready(function () {
+
+        refreshPreview();
+
+        $('#enterpriseNoticeForm').bootstrapValidator({
+            message: 'This value is not valid',
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                subject: {
+                    validators: {
+                        notEmpty: {
+                            message: '主题不能为空'
+                        },
+                        stringLength: {
+                            min: 0,
+                            max: 25,
+                            message: '主题必须在25个字以内'
+                        }
+                    }
+                },
+                context: {
+                    validators: {
+                        notEmpty: {
+                            message: '正文不能为空'
+                        }
+                    }
+                },
+                noticeType: {
+                    validators: {
+                        notEmpty: {
+                            message: '请选择资讯类型'
+                        }
+                    }
+                },
+                category: {
+                    validators: {
+                        notEmpty: {
+                            message: '请选择显示类型'
+                        }
+                    }
+                }
+            }
+        });
+    });
+</script>

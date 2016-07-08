@@ -1,6 +1,7 @@
-﻿using Microsoft.Practices.Unity;
+﻿using System.Web.Mvc;
+using Microsoft.Practices.Unity;
 using Sleemon.Portal.Core;
-using System.Web.Mvc;
+using Sleemon.Portal.Common;
 
 namespace Sleemon.Portal.Controllers
 {
@@ -9,6 +10,16 @@ namespace Sleemon.Portal.Controllers
     public class BaseController : Controller
     {
         [Dependency]
-        public ImplementServiceClient ServiceClient { get; set; }
+        protected ImplementServiceClient ServiceClient { get; set; }
+
+        protected readonly string UserUniqueId;
+
+        public BaseController()
+        {
+            if (User != null && User.Identity != null)
+            {
+                this.UserUniqueId = User.Identity.AsClaimsIdentity().GetUserUniqueId();
+            }
+        }
     }
 }

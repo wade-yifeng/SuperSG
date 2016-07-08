@@ -16,9 +16,9 @@
     {
         private readonly ISleemonEntities _invoicingEntities;
 
-        public EnterpriseNoticeService([Dependency] ISleemonEntities entity)
+        public EnterpriseNoticeService()
         {
-            this._invoicingEntities = entity;
+            this._invoicingEntities = new SleemonEntities();
         }
 
         public IList<EnterpriseNoticePreviewModel> GetEnterpriseSummeryNotices(int pageIndex, int pageSize)

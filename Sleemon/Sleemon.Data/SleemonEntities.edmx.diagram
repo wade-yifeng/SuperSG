@@ -5,56 +5,56 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="905de21ad90e4aa593f27de85048b03b" Name="Diagram1">
-        <EntityTypeShape EntityType="SleemonModel.C__RefactorLog" Width="1.5" PointX="2.75" PointY="9.5" />
-        <EntityTypeShape EntityType="SleemonModel.ConsEnterpriseNotice" Width="1.5" PointX="11" PointY="6" />
-        <EntityTypeShape EntityType="SleemonModel.Department" Width="1.5" PointX="10.75" PointY="1.5" />
-        <EntityTypeShape EntityType="SleemonModel.DepartmentEnterpriseNotice" Width="1.5" PointX="11" PointY="11.5" />
-        <EntityTypeShape EntityType="SleemonModel.EnterpriseNotice" Width="1.5" PointX="8.75" PointY="7.875" />
-        <EntityTypeShape EntityType="SleemonModel.Exam" Width="1.5" PointX="1.5" PointY="4.375" />
-        <EntityTypeShape EntityType="SleemonModel.ExamChoice" Width="1.5" PointX="6" PointY="6.5" />
-        <EntityTypeShape EntityType="SleemonModel.ExamQuestion" Width="1.5" PointX="3.75" PointY="4.125" />
-        <EntityTypeShape EntityType="SleemonModel.GroupSubTask" Width="1.5" PointX="6" PointY="19.625" />
-        <EntityTypeShape EntityType="SleemonModel.GroupTask" Width="1.5" PointX="3.75" PointY="33.625" />
-        <EntityTypeShape EntityType="SleemonModel.Keyword" Width="1.5" PointX="13.75" PointY="17" />
-        <EntityTypeShape EntityType="SleemonModel.KnowledgeBase" Width="1.5" PointX="13.75" PointY="12.75" />
-        <EntityTypeShape EntityType="SleemonModel.KnowledgeBaseKeyword" Width="1.5" PointX="16" PointY="12.75" />
-        <EntityTypeShape EntityType="SleemonModel.LearningChapter" Width="1.5" PointX="1.5" PointY="29.5" />
-        <EntityTypeShape EntityType="SleemonModel.LearningCourse" Width="1.5" PointX="1.5" PointY="33.5" />
-        <EntityTypeShape EntityType="SleemonModel.LearningFile" Width="1.5" PointX="3.75" PointY="29.25" />
-        <EntityTypeShape EntityType="SleemonModel.MessageDispatch" Width="1.5" PointX="8.75" PointY="14.75" />
-        <EntityTypeShape EntityType="SleemonModel.MessageReceiver" Width="1.5" PointX="11" PointY="15.25" />
-        <EntityTypeShape EntityType="SleemonModel.OrderShowFile" Width="1.5" PointX="21" PointY="1.75" />
-        <EntityTypeShape EntityType="SleemonModel.Permission" Width="1.5" PointX="13.75" PointY="8.125" />
-        <EntityTypeShape EntityType="SleemonModel.ProsComments" Width="1.5" PointX="8" PointY="2.5" />
-        <EntityTypeShape EntityType="SleemonModel.ProsEnterpriseNotice" Width="1.5" PointX="11" PointY="8.75" />
-        <EntityTypeShape EntityType="SleemonModel.Questionnaire" Width="1.5" PointX="0.75" PointY="20.75" />
-        <EntityTypeShape EntityType="SleemonModel.QuestionnaireItem" Width="1.5" PointX="3" PointY="42.625" />
-        <EntityTypeShape EntityType="SleemonModel.Role" Width="1.5" PointX="13.75" PointY="3.5" />
-        <EntityTypeShape EntityType="SleemonModel.RolePermission" Width="1.5" PointX="16" PointY="3.5" />
-        <EntityTypeShape EntityType="SleemonModel.SleemonExceptionLog" Width="1.5" PointX="18.75" PointY="5.5" />
-        <EntityTypeShape EntityType="SleemonModel.StorePatrol" Width="1.5" PointX="3" PointY="39" />
-        <EntityTypeShape EntityType="SleemonModel.SystemConfig" Width="1.5" PointX="18.75" PointY="9.5" />
-        <EntityTypeShape EntityType="SleemonModel.Task" Width="1.5" PointX="0.75" PointY="14.25" />
-        <EntityTypeShape EntityType="SleemonModel.TaskExam" Width="1.5" PointX="6" PointY="15.5" />
-        <EntityTypeShape EntityType="SleemonModel.TaskLearning" Width="1.5" PointX="3" PointY="15.625" />
-        <EntityTypeShape EntityType="SleemonModel.TaskQuestionnaire" Width="1.5" PointX="3" PointY="19.625" />
-        <EntityTypeShape EntityType="SleemonModel.Training" Width="1.5" PointX="0.75" PointY="8.75" />
-        <EntityTypeShape EntityType="SleemonModel.TrainingTask" Width="1.5" PointX="3" PointY="11.625" />
-        <EntityTypeShape EntityType="SleemonModel.User" Width="1.5" PointX="8.75" PointY="19.5" />
-        <EntityTypeShape EntityType="SleemonModel.UserComments" Width="1.5" PointX="5.75" PointY="1.75" />
-        <EntityTypeShape EntityType="SleemonModel.UserDailySignIn" Width="1.5" PointX="10.75" PointY="19.5" />
-        <EntityTypeShape EntityType="SleemonModel.UserDepartment" Width="1.5" PointX="18.75" PointY="13.5" />
-        <EntityTypeShape EntityType="SleemonModel.UserExamAnswer" Width="1.5" PointX="6" PointY="11.625" />
-        <EntityTypeShape EntityType="SleemonModel.UserMoments" Width="1.5" PointX="12.75" PointY="20.5" />
-        <EntityTypeShape EntityType="SleemonModel.UserOrderShow" Width="1.5" PointX="18.75" PointY="1.75" />
-        <EntityTypeShape EntityType="SleemonModel.UserPointRecord" Width="1.5" PointX="14.75" PointY="20.5" />
-        <EntityTypeShape EntityType="SleemonModel.UserQuestion" Width="1.5" PointX="15.75" PointY="16.75" />
-        <EntityTypeShape EntityType="SleemonModel.UserQuestionnaireAnswer" Width="1.5" PointX="5.25" PointY="42.875" />
-        <EntityTypeShape EntityType="SleemonModel.UserQuestionReply" Width="1.5" PointX="18" PointY="16.75" />
-        <EntityTypeShape EntityType="SleemonModel.UserRole" Width="1.5" PointX="16" PointY="6.875" />
-        <EntityTypeShape EntityType="SleemonModel.UserStorePatrol" Width="1.5" PointX="5.25" PointY="38.75" />
-        <EntityTypeShape EntityType="SleemonModel.UserTask" Width="1.5" PointX="3" PointY="24.625" />
-        <EntityTypeShape EntityType="SleemonModel.UserTraining" Width="1.5" PointX="3" PointY="0.75" />
+        <EntityTypeShape EntityType="SleemonModel.C__RefactorLog" Width="1.5" PointX="3.75" PointY="5.75" />
+        <EntityTypeShape EntityType="SleemonModel.ConsEnterpriseNotice" Width="1.5" PointX="11" PointY="6.875" />
+        <EntityTypeShape EntityType="SleemonModel.Department" Width="1.5" PointX="5.75" PointY="4.75" />
+        <EntityTypeShape EntityType="SleemonModel.DepartmentEnterpriseNotice" Width="1.5" PointX="11" PointY="4.375" />
+        <EntityTypeShape EntityType="SleemonModel.EnterpriseNotice" Width="1.5" PointX="8.75" PointY="3.25" />
+        <EntityTypeShape EntityType="SleemonModel.Exam" Width="1.5" PointX="3.75" PointY="8.625" />
+        <EntityTypeShape EntityType="SleemonModel.ExamChoice" Width="1.5" PointX="9" PointY="9.75" />
+        <EntityTypeShape EntityType="SleemonModel.ExamQuestion" Width="1.5" PointX="6.75" PointY="8.375" />
+        <EntityTypeShape EntityType="SleemonModel.GroupSubTask" Width="1.5" PointX="6" PointY="20.75" />
+        <EntityTypeShape EntityType="SleemonModel.GroupTask" Width="1.5" PointX="3.75" PointY="28.75" />
+        <EntityTypeShape EntityType="SleemonModel.Keyword" Width="1.5" PointX="13.75" PointY="27.125" />
+        <EntityTypeShape EntityType="SleemonModel.KnowledgeBase" Width="1.5" PointX="13.75" PointY="6" />
+        <EntityTypeShape EntityType="SleemonModel.KnowledgeBaseKeyword" Width="1.5" PointX="16" PointY="6" />
+        <EntityTypeShape EntityType="SleemonModel.LearningChapter" Width="1.5" PointX="1.5" PointY="5.75" />
+        <EntityTypeShape EntityType="SleemonModel.LearningCourse" Width="1.5" PointX="1.5" PointY="1.75" />
+        <EntityTypeShape EntityType="SleemonModel.LearningFile" Width="1.5" PointX="0.75" PointY="10.5" />
+        <EntityTypeShape EntityType="SleemonModel.MessageDispatch" Width="1.5" PointX="13.75" PointY="1" />
+        <EntityTypeShape EntityType="SleemonModel.MessageReceiver" Width="1.5" PointX="16" PointY="1.375" />
+        <EntityTypeShape EntityType="SleemonModel.OrderShowFile" Width="1.5" PointX="19" PointY="10" />
+        <EntityTypeShape EntityType="SleemonModel.Permission" Width="1.5" PointX="11.75" PointY="15.25" />
+        <EntityTypeShape EntityType="SleemonModel.ProsComments" Width="1.5" PointX="6" PointY="1.625" />
+        <EntityTypeShape EntityType="SleemonModel.ProsEnterpriseNotice" Width="1.5" PointX="11" PointY="1.25" />
+        <EntityTypeShape EntityType="SleemonModel.Questionnaire" Width="1.5" PointX="1.5" PointY="28.75" />
+        <EntityTypeShape EntityType="SleemonModel.QuestionnaireChoice" Width="1.5" PointX="3.75" PointY="24.75" />
+        <EntityTypeShape EntityType="SleemonModel.QuestionnaireItem" Width="1.5" PointX="1.5" PointY="24.625" />
+        <EntityTypeShape EntityType="SleemonModel.Role" Width="1.5" PointX="11.75" PointY="11.75" />
+        <EntityTypeShape EntityType="SleemonModel.RolePermission" Width="1.5" PointX="14" PointY="11.625" />
+        <EntityTypeShape EntityType="SleemonModel.SleemonExceptionLog" Width="1.5" PointX="8.75" PointY="13.75" />
+        <EntityTypeShape EntityType="SleemonModel.StorePatrol" Width="1.5" PointX="3" PointY="43.875" />
+        <EntityTypeShape EntityType="SleemonModel.SystemConfig" Width="1.5" PointX="16.75" PointY="13.75" />
+        <EntityTypeShape EntityType="SleemonModel.Task" Width="1.5" PointX="0.75" PointY="15.375" />
+        <EntityTypeShape EntityType="SleemonModel.TaskExam" Width="1.5" PointX="6" PointY="16.75" />
+        <EntityTypeShape EntityType="SleemonModel.TaskLearning" Width="1.5" PointX="3" PointY="12.875" />
+        <EntityTypeShape EntityType="SleemonModel.TaskQuestionnaire" Width="1.5" PointX="3" PointY="20.875" />
+        <EntityTypeShape EntityType="SleemonModel.Training" Width="1.5" PointX="0.75" PointY="32.875" />
+        <EntityTypeShape EntityType="SleemonModel.TrainingTask" Width="1.5" PointX="3" PointY="16.875" />
+        <EntityTypeShape EntityType="SleemonModel.User" Width="1.5" PointX="13.75" PointY="19.875" />
+        <EntityTypeShape EntityType="SleemonModel.UserComments" Width="1.5" PointX="3.75" PointY="1" />
+        <EntityTypeShape EntityType="SleemonModel.UserDailySignIn" Width="1.5" PointX="16.75" PointY="17.75" />
+        <EntityTypeShape EntityType="SleemonModel.UserDepartment" Width="1.5" PointX="18.75" PointY="0.75" />
+        <EntityTypeShape EntityType="SleemonModel.UserExamAnswer" Width="1.5" PointX="9" PointY="16.875" />
+        <EntityTypeShape EntityType="SleemonModel.UserMoments" Width="1.5" PointX="18.75" PointY="3.75" />
+        <EntityTypeShape EntityType="SleemonModel.UserOrderShow" Width="1.5" PointX="16.75" PointY="10" />
+        <EntityTypeShape EntityType="SleemonModel.UserPointRecord" Width="1.5" PointX="18.75" PointY="13.75" />
+        <EntityTypeShape EntityType="SleemonModel.UserQuestion" Width="1.5" PointX="18.75" PointY="16.75" />
+        <EntityTypeShape EntityType="SleemonModel.UserQuestionnaireAnswer" Width="1.5" PointX="6" PointY="12.875" />
+        <EntityTypeShape EntityType="SleemonModel.UserRole" Width="1.5" PointX="14" PointY="15.125" />
+        <EntityTypeShape EntityType="SleemonModel.UserStorePatrol" Width="1.5" PointX="5.25" PointY="43.75" />
+        <EntityTypeShape EntityType="SleemonModel.UserTask" Width="1.5" PointX="3" PointY="40" />
+        <EntityTypeShape EntityType="SleemonModel.UserTraining" Width="1.5" PointX="3" PointY="34" />
         <AssociationConnector Association="SleemonModel.FK_ConsEnterpriseNotice_EnterpriseNoticeId_EnterpriseNotice" />
         <AssociationConnector Association="SleemonModel.FK_DepartmentEnterpriseNotice_EnterpriseNoticeId_EnterpriseNotice" />
         <AssociationConnector Association="SleemonModel.FK_ProsEnterpriseNotice_EnterpriseNoticeId_EnterpriseNotice" />
@@ -77,7 +77,8 @@
         <AssociationConnector Association="SleemonModel.FK_ProsComments_UserCommentId_UserComments" />
         <AssociationConnector Association="SleemonModel.FK_QuestionnaireItem_Questionnaire" />
         <AssociationConnector Association="SleemonModel.FK_TaskQuestionnaire_Questionnaire" />
-        <AssociationConnector Association="SleemonModel.FK_UserQuestionnaireAnswer_QuestionnaireItem" />
+        <AssociationConnector Association="SleemonModel.FK_QuestionnaireChoice_QuestionnaireItemId_QuestionnaireItem_Id" />
+        <AssociationConnector Association="SleemonModel.FK_UserQuestionnaireAnswer_QuestionnaireChoiceId_QuestionnaireChoice" />
         <AssociationConnector Association="SleemonModel.FK_RolePermission_Role" />
         <AssociationConnector Association="SleemonModel.FK_UserRole_Role" />
         <AssociationConnector Association="SleemonModel.FK_StorePatrol_Task" />
@@ -87,11 +88,11 @@
         <AssociationConnector Association="SleemonModel.FK_TaskQuestionnaire_Task" />
         <AssociationConnector Association="SleemonModel.FK_TrainingTask_Task" />
         <AssociationConnector Association="SleemonModel.FK_UserExamAnswer_TaskId_Task_Id" />
+        <AssociationConnector Association="SleemonModel.FK_UserQuestionnaireAnswer_TaskId_Task_Id" />
         <AssociationConnector Association="SleemonModel.FK_UserTask_Task" />
         <AssociationConnector Association="SleemonModel.FK_TrainingTask_Training" />
         <AssociationConnector Association="SleemonModel.FK_UserTraining_Training" />
         <AssociationConnector Association="SleemonModel.FK_ParentId_UserComments" />
-        <AssociationConnector Association="SleemonModel.FK_UserQuestionReply_UserQuestion" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

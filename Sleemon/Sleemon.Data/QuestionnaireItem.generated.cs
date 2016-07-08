@@ -46,13 +46,19 @@ namespace Sleemon.Data
     	}
         [Column(Name = "IsActive", DbType = "Boolean", CanBeNull = false)]
         public bool IsActive { get; set; }
+        [Column(Name = "No", DbType = "Int16", CanBeNull = false)]
+        public short No { get; set; }
+        [Column(Name = "Image", DbType = "String")]
+        public string Image { get; set; }
+        [Column(Name = "Category", DbType = "Byte", CanBeNull = false)]
+        public byte Category { get; set; }
     
         public virtual Questionnaire Questionnaire { get; set; }
-        private ICollection<UserQuestionnaireAnswer> _UserQuestionnaireAnswer;
-        public virtual ICollection<UserQuestionnaireAnswer> UserQuestionnaireAnswer
+        private ICollection<QuestionnaireChoice> _QuestionnaireChoice;
+        public virtual ICollection<QuestionnaireChoice> QuestionnaireChoice
         {
-            get { return this._UserQuestionnaireAnswer ?? (this._UserQuestionnaireAnswer = new HashSet<UserQuestionnaireAnswer>()); }
-            set { this._UserQuestionnaireAnswer = value; }
+            get { return this._QuestionnaireChoice ?? (this._QuestionnaireChoice = new HashSet<QuestionnaireChoice>()); }
+            set { this._QuestionnaireChoice = value; }
         }
     }
 }

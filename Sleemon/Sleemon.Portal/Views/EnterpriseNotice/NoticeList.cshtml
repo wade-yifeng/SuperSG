@@ -1,0 +1,127 @@
+﻿@model  Sleemon.Data.Models.NoticeListModel
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="container">
+            <div class="row">
+                <section>
+                    <form id="noticeListForm">
+                        <div class="col-lg-10 col-lg-offset-0">
+                            <div class="form-group">
+                                <label class="col-lg-2 control-label">标题：</label>
+                                <div class="col-lg-2">
+                                    <input type="text" class="form-control" name="taskTitle" id="roleName" value="@ViewBag.noticeTitle">
+                                </div>
+                                <button type="button" class="btn btn-primary" onclick="search()">查 询</button>
+                            </div>
+                            <input type="hidden" name="pageIndex" id="pageIndex" value="@ViewBag.pageIndex" />
+                            <input type="hidden" name="pageSize" id="pageSize" value="15" />
+                        </div>
+                    </form>
+                </section>
+                <div class="col-lg-2 col-lg-offset-0">
+                    <button type="button" class="btn btn-primary" onclick="createNotice(0)">创 建</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@if (Model != null && Model.TotalCount > 0)
+{
+    <input type="hidden" name="totalCount" id="totalCount" value="@Model.TotalCount" />
+    <table class="table">
+        <caption>资讯列表</caption>
+        <thead>
+            <tr>
+                <th>序号</th>
+                <th>标题</th>
+                <th>显示方式</th>
+                <th>资讯类型</th>
+                <th>简介</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                for (int i = 0; i < Model.NoticeList.Count; i++)
+                {
+                    int xh = (i + 1) + (Model.PageIndex - 1) * Model.PageSize;
+                    <tr>
+                        <td>@xh</td>
+                        <td>@Model.NoticeList[i].Subject</td>
+                        <td>@Sleemon.Common.EnumHelper.GetEnumDescription((Sleemon.Common.NoticeCategory)Model.NoticeList[i].Category)</td>
+                        <td>@Sleemon.Common.EnumHelper.GetEnumDescription((Sleemon.Common.NoticeType)Model.NoticeList[i].NoticeType)</td>
+                        <td>@Model.NoticeList[i].Summary</td>
+                        <td>
+                            <a data-toggle="modal" href="#" onclick="editNotice(@Model.NoticeList[i].Id)">编辑</a>
+                            <a data-toggle="modal" href="#" onclick="deleteNotice(@Model.NoticeList[i].Id)">删除</a>
+                        </td>
+                    </tr>
+                }
+            }
+
+        </tbody>
+    </table>
+    <div id="divPager"></div>
+}
+else
+{
+    <input type="hidden" name="totalCount" id="totalCount" value="0" />
+
+}
+<script type="text/javascript" language="javascript">
+    function createNotice() {
+        $.ajax({
+            type: "GET",
+            url: "/EnterpriseNotice/Create",
+            cache: false,
+            success: function (data) {
+                $(".col-content").html(data);
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        });
+    }
+
+    function search() {
+        $.ajax({
+            type: "GET",
+            url: "/EnterpriseNotice/GetNoticeList",
+            cache: false,
+            data: $("#noticeListForm").serialize(),
+            success: function(data) {
+                $(".col-content").html(data);
+            },
+            error: function(err) {
+                console.log(err);
+            }
+        });
+    }
+    
+    //分页
+    var options = {
+        bootstrapMajorVersion: 2, //版本
+        currentPage: $("#pageIndex").val(), //当前页数
+        totalPages: $("#totalCount").val() % $("#pageSize").val() == 0 ? $("#totalCount").val() / $("#pageSize").val() : ($("#totalCount").val() / $("#pageSize").val()) + 1, //总页数
+        itemTexts: function (type, page, current) {
+            switch (type) {
+                case "first":
+                    return "首页";
+                case "prev":
+                    return "上一页";
+                case "next":
+                    return "下一页";
+                case "last":
+                    return "末页";
+                case "page":
+                    return page;
+            }
+        },
+        onPageClicked: function (event, originalEvent, type, page) {
+            $("#pageIndex").val(page);
+            search();
+        }
+    }
+
+    $('#divPager').bootstrapPaginator(options);
+</script>
