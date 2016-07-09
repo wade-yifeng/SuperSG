@@ -22,8 +22,8 @@ namespace Sleemon.Data
         public int TaskId { get; set; }
         [Column(Name = "UserUniqueId", DbType = "String", CanBeNull = false)]
         public string UserUniqueId { get; set; }
-        [Column(Name = "QuestionnaireChoiceId", DbType = "Int32", CanBeNull = false)]
-        public int QuestionnaireChoiceId { get; set; }
+        [Column(Name = "QuestionnaireItemId", DbType = "Int32", CanBeNull = false)]
+        public int QuestionnaireItemId { get; set; }
         [Column(Name = "MyAnswer", DbType = "String", CanBeNull = false)]
         public string MyAnswer { get; set; }
         [Column(Name = "LastUpdateTime", DbType = "DateTime", CanBeNull = false)]
@@ -43,7 +43,7 @@ namespace Sleemon.Data
         [Column(Name = "IsActive", DbType = "Boolean", CanBeNull = false)]
         public bool IsActive { get; set; }
     
-        public virtual QuestionnaireChoice QuestionnaireChoice { get; set; }
+        public virtual QuestionnaireItem QuestionnaireItem { get; set; }
         public virtual Task Task { get; set; }
     }
 }

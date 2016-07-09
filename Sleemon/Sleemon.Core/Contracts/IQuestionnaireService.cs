@@ -12,5 +12,13 @@
         ResultBase SaveQuestionnaireDetail(QuestionnaireDetailModel questionnaire);
 
         ResultBase DeleteQuestionnaireById(int questionnaireId);
+
+        int GetQuestionnaireQuestionCount(int taskId);
+
+        IList<QuestionnaireQuestionModel> GetQuestionnaireQuestions(int taskId);
+
+        ResultBase CommitQuestionnaire(IList<QuestionnaireAnswerModel> context);
+
+        IList<QuestionnaireQuestionPreviewModel> GetQuestionnaireStatistics(string userUniqueId, int taskId);
     }
 }

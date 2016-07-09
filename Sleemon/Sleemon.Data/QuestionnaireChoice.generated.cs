@@ -16,10 +16,6 @@ namespace Sleemon.Data
     public partial class QuestionnaireChoice
         : Entity
     {
-        public QuestionnaireChoice()
-        {
-        }
-    
         [Column(Name = "Id", DbType = "Int32", IsPrimaryKey = true, CanBeNull = false, IsDbGenerated = true)]
         public int Id { get; set; }
         [Column(Name = "QuestionnaireItemId", DbType = "Int32", CanBeNull = false)]
@@ -52,11 +48,5 @@ namespace Sleemon.Data
         public bool IsActive { get; set; }
     
         public virtual QuestionnaireItem QuestionnaireItem { get; set; }
-        private ICollection<UserQuestionnaireAnswer> _UserQuestionnaireAnswer;
-        public virtual ICollection<UserQuestionnaireAnswer> UserQuestionnaireAnswer
-        {
-            get { return this._UserQuestionnaireAnswer ?? (this._UserQuestionnaireAnswer = new HashSet<UserQuestionnaireAnswer>()); }
-            set { this._UserQuestionnaireAnswer = value; }
-        }
     }
 }

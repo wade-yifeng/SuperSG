@@ -174,5 +174,68 @@ WHERE [QuestionnaireWithRowNumber].[Row] BETWEEN (@pageIndex -1) * @pageSize + 1
                 StatusCode = (int)StatusCode.Success
             };
         }
+
+        public int GetQuestionnaireQuestionCount(int taskId)
+        {
+            return
+                this._invoicingEntities.TaskQuestionnaire
+                    .Include(p => p.Questionnaire)
+                    .Where(p => p.IsActive && p.TaskId == taskId && p.Questionnaire.IsActive)
+                    .Select(p => p.Questionnaire)
+                    .Count();
+        }
+
+        public IList<QuestionnaireQuestionModel> GetQuestionnaireQuestions(int taskId)
+        {
+            var results = new List<QuestionnaireQuestionModel>();
+
+            var questionnaireEntities =
+                this._invoicingEntities.TaskQuestionnaire
+                    .Include("Questionnaire.QuestionnaireItem.QuestionnaireChoice")
+                    .Where(p => p.IsActive && p.TaskId == taskId && p.Questionnaire.IsActive)
+                    .Select(p => p.Questionnaire)
+                    .ToList();
+
+            foreach (var questionnaireEntity in questionnaireEntities)
+            {
+                foreach (var questionnaireItem in questionnaireEntity.QuestionnaireItem)
+                {
+                    if (questionnaireItem.IsActive)
+                    {
+                        results.Add(new QuestionnaireQuestionModel()
+                        {
+                            QuestionnaireItemId = questionnaireItem.Id,
+                            No = questionnaireItem.No,
+                            Question = questionnaireItem.Question,
+                            Image = questionnaireItem.Image,
+                            Rate = questionnaireItem.Rate,
+                            Category = questionnaireItem.Category,
+                            Choices = questionnaireItem.QuestionnaireChoice.Where(p => p.IsActive).Select(p => new QuestionnaireChoiceModel()
+                            {
+                                Choice = p.Choice,
+                                Description = p.Description,
+                                Image = p.Image
+                            }).ToList()
+                        });
+                    }
+                }
+            }
+
+            return results;
+        }
+
+        public ResultBase CommitQuestionnaire(IList<QuestionnaireAnswerModel> context)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IList<QuestionnaireQuestionPreviewModel> GetQuestionnaireStatistics(string userUniqueId, int taskId)
+        {
+            //var taskEntities =
+            //    this._invoicingEntities.UserTask.Include("").Where(
+            //        p => p.IsActive && p.TaskId == taskId && p.UserUniqueId == userUniqueId);
+
+            throw new NotImplementedException();
+        }
     }
 }

@@ -608,7 +608,7 @@ warning 6005: The data type 'hierarchyid' is currently not supported for the tar
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="TaskId" Type="int" Nullable="false" />
           <Property Name="UserUniqueId" Type="nvarchar" MaxLength="200" Nullable="false" />
-          <Property Name="QuestionnaireChoiceId" Type="int" Nullable="false" />
+          <Property Name="QuestionnaireItemId" Type="int" Nullable="false" />
           <Property Name="MyAnswer" Type="nvarchar" MaxLength="500" Nullable="false" />
           <Property Name="LastUpdateTime" Type="date" Nullable="false" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
@@ -1048,15 +1048,15 @@ warning 6005: The data type 'hierarchyid' is currently not supported for the tar
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_UserQuestionnaireAnswer_QuestionnaireChoiceId_QuestionnaireChoice">
-          <End Role="QuestionnaireChoice" Type="Self.QuestionnaireChoice" Multiplicity="1" />
+        <Association Name="FK_UserQuestionnaireAnswer_QuestionnaireItemId_QuestionnaireItem">
+          <End Role="QuestionnaireItem" Type="Self.QuestionnaireItem" Multiplicity="1" />
           <End Role="UserQuestionnaireAnswer" Type="Self.UserQuestionnaireAnswer" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="QuestionnaireChoice">
+            <Principal Role="QuestionnaireItem">
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="UserQuestionnaireAnswer">
-              <PropertyRef Name="QuestionnaireChoiceId" />
+              <PropertyRef Name="QuestionnaireItemId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1346,8 +1346,8 @@ warning 6005: The data type 'hierarchyid' is currently not supported for the tar
             <End Role="Task" EntitySet="Task" />
             <End Role="UserExamAnswer" EntitySet="UserExamAnswer" />
           </AssociationSet>
-          <AssociationSet Name="FK_UserQuestionnaireAnswer_QuestionnaireChoiceId_QuestionnaireChoice" Association="Self.FK_UserQuestionnaireAnswer_QuestionnaireChoiceId_QuestionnaireChoice">
-            <End Role="QuestionnaireChoice" EntitySet="QuestionnaireChoice" />
+          <AssociationSet Name="FK_UserQuestionnaireAnswer_QuestionnaireItemId_QuestionnaireItem" Association="Self.FK_UserQuestionnaireAnswer_QuestionnaireItemId_QuestionnaireItem">
+            <End Role="QuestionnaireItem" EntitySet="QuestionnaireItem" />
             <End Role="UserQuestionnaireAnswer" EntitySet="UserQuestionnaireAnswer" />
           </AssociationSet>
           <AssociationSet Name="FK_UserQuestionnaireAnswer_TaskId_Task_Id" Association="Self.FK_UserQuestionnaireAnswer_TaskId_Task_Id">
@@ -1565,8 +1565,8 @@ warning 6005: The data type 'hierarchyid' is currently not supported for the tar
             <End Role="QuestionnaireItem" EntitySet="QuestionnaireItem" />
             <End Role="QuestionnaireChoice" EntitySet="QuestionnaireChoice" />
           </AssociationSet>
-          <AssociationSet Name="FK_UserQuestionnaireAnswer_QuestionnaireChoiceId_QuestionnaireChoice" Association="SleemonModel.FK_UserQuestionnaireAnswer_QuestionnaireChoiceId_QuestionnaireChoice">
-            <End Role="QuestionnaireChoice" EntitySet="QuestionnaireChoice" />
+          <AssociationSet Name="FK_UserQuestionnaireAnswer_QuestionnaireItemId_QuestionnaireItem" Association="SleemonModel.FK_UserQuestionnaireAnswer_QuestionnaireItemId_QuestionnaireItem">
+            <End Role="QuestionnaireItem" EntitySet="QuestionnaireItem" />
             <End Role="UserQuestionnaireAnswer" EntitySet="UserQuestionnaireAnswer" />
           </AssociationSet>
           <AssociationSet Name="FK_RolePermission_Role" Association="SleemonModel.FK_RolePermission_Role">
@@ -1625,7 +1625,7 @@ warning 6005: The data type 'hierarchyid' is currently not supported for the tar
             <End Role="UserComments" EntitySet="UserComments" />
             <End Role="UserComments1" EntitySet="UserComments" />
           </AssociationSet>
-        </EntityContainer>
+          </EntityContainer>
         <ComplexType Name="spCommitEntireExam_Result">
           <Property Type="Double" Name="UserScore" Nullable="true" />
           <Property Type="Int32" Name="Point" Nullable="true" />
@@ -2007,7 +2007,6 @@ warning 6005: The data type 'hierarchyid' is currently not supported for the tar
           <Property Name="LastUpdateTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="QuestionnaireItem" Relationship="SleemonModel.FK_QuestionnaireChoice_QuestionnaireItemId_QuestionnaireItem_Id" FromRole="QuestionnaireChoice" ToRole="QuestionnaireItem" />
-          <NavigationProperty Name="UserQuestionnaireAnswer" Relationship="SleemonModel.FK_UserQuestionnaireAnswer_QuestionnaireChoiceId_QuestionnaireChoice" FromRole="QuestionnaireChoice" ToRole="UserQuestionnaireAnswer" />
         </EntityType>
         <EntityType Name="QuestionnaireItem">
           <Key>
@@ -2025,6 +2024,7 @@ warning 6005: The data type 'hierarchyid' is currently not supported for the tar
           <Property Name="Category" Type="Byte" Nullable="false" />
           <NavigationProperty Name="Questionnaire" Relationship="SleemonModel.FK_QuestionnaireItem_Questionnaire" FromRole="QuestionnaireItem" ToRole="Questionnaire" />
           <NavigationProperty Name="QuestionnaireChoice" Relationship="SleemonModel.FK_QuestionnaireChoice_QuestionnaireItemId_QuestionnaireItem_Id" FromRole="QuestionnaireItem" ToRole="QuestionnaireChoice" />
+          <NavigationProperty Name="UserQuestionnaireAnswer" Relationship="SleemonModel.FK_UserQuestionnaireAnswer_QuestionnaireItemId_QuestionnaireItem" FromRole="QuestionnaireItem" ToRole="UserQuestionnaireAnswer" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -2340,11 +2340,11 @@ warning 6005: The data type 'hierarchyid' is currently not supported for the tar
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="TaskId" Type="Int32" Nullable="false" />
           <Property Name="UserUniqueId" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="QuestionnaireChoiceId" Type="Int32" Nullable="false" />
+          <Property Name="QuestionnaireItemId" Type="Int32" Nullable="false" />
           <Property Name="MyAnswer" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="LastUpdateTime" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="QuestionnaireChoice" Relationship="SleemonModel.FK_UserQuestionnaireAnswer_QuestionnaireChoiceId_QuestionnaireChoice" FromRole="UserQuestionnaireAnswer" ToRole="QuestionnaireChoice" />
+          <NavigationProperty Name="QuestionnaireItem" Relationship="SleemonModel.FK_UserQuestionnaireAnswer_QuestionnaireItemId_QuestionnaireItem" FromRole="UserQuestionnaireAnswer" ToRole="QuestionnaireItem" />
           <NavigationProperty Name="Task" Relationship="SleemonModel.FK_UserQuestionnaireAnswer_TaskId_Task_Id" FromRole="UserQuestionnaireAnswer" ToRole="Task" />
         </EntityType>
         <EntityType Name="UserRole">
@@ -2678,15 +2678,15 @@ warning 6005: The data type 'hierarchyid' is currently not supported for the tar
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_UserQuestionnaireAnswer_QuestionnaireChoiceId_QuestionnaireChoice">
-          <End Type="SleemonModel.QuestionnaireChoice" Role="QuestionnaireChoice" Multiplicity="1" />
+        <Association Name="FK_UserQuestionnaireAnswer_QuestionnaireItemId_QuestionnaireItem">
+          <End Type="SleemonModel.QuestionnaireItem" Role="QuestionnaireItem" Multiplicity="1" />
           <End Type="SleemonModel.UserQuestionnaireAnswer" Role="UserQuestionnaireAnswer" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="QuestionnaireChoice">
+            <Principal Role="QuestionnaireItem">
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="UserQuestionnaireAnswer">
-              <PropertyRef Name="QuestionnaireChoiceId" />
+              <PropertyRef Name="QuestionnaireItemId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -3577,7 +3577,7 @@ warning 6005: The data type 'hierarchyid' is currently not supported for the tar
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
                 <ScalarProperty Name="LastUpdateTime" ColumnName="LastUpdateTime" />
                 <ScalarProperty Name="MyAnswer" ColumnName="MyAnswer" />
-                <ScalarProperty Name="QuestionnaireChoiceId" ColumnName="QuestionnaireChoiceId" />
+                <ScalarProperty Name="QuestionnaireItemId" ColumnName="QuestionnaireItemId" />
                 <ScalarProperty Name="UserUniqueId" ColumnName="UserUniqueId" />
                 <ScalarProperty Name="TaskId" ColumnName="TaskId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
@@ -3639,7 +3639,7 @@ warning 6005: The data type 'hierarchyid' is currently not supported for the tar
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-        </EntityContainerMapping>
+          </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>

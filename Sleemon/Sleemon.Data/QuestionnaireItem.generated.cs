@@ -60,5 +60,11 @@ namespace Sleemon.Data
             get { return this._QuestionnaireChoice ?? (this._QuestionnaireChoice = new HashSet<QuestionnaireChoice>()); }
             set { this._QuestionnaireChoice = value; }
         }
+        private ICollection<UserQuestionnaireAnswer> _UserQuestionnaireAnswer;
+        public virtual ICollection<UserQuestionnaireAnswer> UserQuestionnaireAnswer
+        {
+            get { return this._UserQuestionnaireAnswer ?? (this._UserQuestionnaireAnswer = new HashSet<UserQuestionnaireAnswer>()); }
+            set { this._UserQuestionnaireAnswer = value; }
+        }
     }
 }

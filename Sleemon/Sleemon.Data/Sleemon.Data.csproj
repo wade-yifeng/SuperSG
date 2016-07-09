@@ -156,9 +156,12 @@
     <Compile Include="Models\LearningFileModels\LearningCourseListModel.cs" />
     <Compile Include="Models\LearningFileModels\LearningFileDetailModel.cs" />
     <Compile Include="Models\LearningFileModels\LearningFileListModel.cs" />
+    <Compile Include="Models\QuestionnaireModels\QuestionnaireAnswerModel.cs" />
     <Compile Include="Models\QuestionnaireModels\QuestionnaireBasicModel.cs" />
     <Compile Include="Models\QuestionnaireModels\QuestionnaireDetailModel.cs" />
     <Compile Include="Models\QuestionnaireModels\QuestionnaireListModel.cs" />
+    <Compile Include="Models\QuestionnaireModels\QuestionnaireQuestionModel.cs" />
+    <Compile Include="Models\QuestionnaireModels\QuestionnaireQuestionPreviewModel.cs" />
     <Compile Include="Models\RoleModels\RoleListModel.cs" />
     <Compile Include="Models\SearchModels\GroupTaskSearchContext.cs" />
     <Compile Include="Models\SearchModels\TaskItemSearchContext.cs" />
