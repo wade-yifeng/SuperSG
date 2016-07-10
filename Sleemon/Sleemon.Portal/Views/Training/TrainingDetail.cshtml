@@ -1,0 +1,101 @@
+﻿@using Sleemon.Common
+@using Sleemon.Data
+@model TrainingDetailModel
+
+
+<div class="notice_edit col-xs-12 col-sm-8">
+    <div class="widget-box">
+        <div class="widget-header">
+            <h4 class="widget-title">培训详细 - @Model.Subject</h4>
+        </div>
+
+        <div class="widget-body">
+            <div class="widget-main">
+                <h4>基本信息</h4>
+                <div>
+                    <label>培训名称：</label>
+                    @Html.DisplayFor(u => u.Subject)
+                </div>
+                <div>
+                    <label>描述：</label>
+                    @Html.DisplayFor(u => u.Description)
+                </div>
+                <div>
+                    <label>地点：</label>
+                    @Html.DisplayFor(u => u.Location)
+                </div>
+                <div>
+                    <label>是否需签到：</label>
+                    @Html.DisplayFor(u => u.IsCheckInNeeded)
+                </div>
+                <div>
+                    <label>开始时间：</label>
+                    @Html.DisplayFor(u => u.StartFrom)
+                </div>
+                <div>
+                    <label>结束时间：</label>
+                    @Html.DisplayFor(u => u.EndTo)
+                </div>
+                <div>
+                    <label>当前状态：</label>
+                    @Sleemon.Common.EnumHelper.GetEnumDescription((ActionCategory)Model.Status)
+                </div>
+                <div>
+                    <label>是否公开：</label>
+                    @Html.DisplayFor(u => u.IsPublic)
+                </div>
+                <div>
+                    <label>最后更新人：</label>
+                    @Html.DisplayFor(u => u.LastUpdateUserName)
+                </div>
+                <div>
+                    <label>最后更新时间：</label>
+                    @Model.LastUpdateTime.ToShortDateString()
+                </div>
+                @if (Model.Tasks != null)
+                {
+                    <div>
+                        <h4>任务列表</h4>
+                        @for (int i = 0; i < Model.Tasks.Count; i++)
+                        {
+                            var task = Model.Tasks[i];
+                            <div>
+                                @(i + 1)、
+                                (@Sleemon.Common.EnumHelper.GetEnumDescription((TaskCategory)task.TaskCategory)
+                            </div>
+
+                            if (task.TaskCategory == (byte)TaskCategory.Exam)
+                            {
+                                foreach (var exam in task.Exams)
+                                {
+                                    <div>
+                                        @exam.Title
+                                    </div>
+                                }
+                            }
+                            else if (task.TaskCategory == (byte)TaskCategory.Learning)
+                            {
+                                foreach (var learningFile in task.LearningFiles)
+                                {
+                                    <div>
+                                        @learningFile.Subject
+                                    </div>
+                                }
+                            }
+                            else if (task.TaskCategory == (byte)TaskCategory.Questionnaire)
+                            {
+                                foreach (var questionnaire in task.Questionnaires)
+                                {
+                                    <div>
+                                        @questionnaire.Title
+                                    </div>
+                                }
+                            }
+                            <br />
+                        }
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

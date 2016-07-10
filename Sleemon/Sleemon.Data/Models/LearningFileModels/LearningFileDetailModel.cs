@@ -10,7 +10,7 @@
 
         public string Description { get; set; }
 
-        public string FilePath { get; set; }
+        public string Content { get; set; }
 
         public byte FileType { get; set; }
 

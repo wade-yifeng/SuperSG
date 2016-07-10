@@ -14,6 +14,15 @@ namespace Sleemon.Portal.Common
             return identity as ClaimsIdentity;
         }
 
+        public static string GetUserUniqueId(this ClaimsIdentity identity)
+        {
+            var claim =
+                identity.Claims.SingleOrDefault(
+                    item => item.Type.Equals(ClaimTypes.NameIdentifier, StringComparison.OrdinalIgnoreCase));
+
+            return claim == null ? string.Empty : claim.Value;
+        }
+
         public static string GetAvatar(this ClaimsIdentity identity)
         {
             var claim = identity.Claims.SingleOrDefault(item => item.Type.Equals(AvatarClaim, StringComparison.OrdinalIgnoreCase));

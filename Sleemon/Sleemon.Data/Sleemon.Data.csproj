@@ -132,6 +132,7 @@
     <Compile Include="MessageReceiver.generated.cs">
       <DependentUpon>EntitiesGen.Entities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\DepartmentModels\DepartmentBaseModel.cs" />
     <Compile Include="Models\DepartmentModels\DepartmentModel.cs" />
     <Compile Include="Models\DepartmentModels\DepartmentSyncModel.cs" />
     <Compile Include="Models\DepartmentNoticeModels\EnterpriseNoticeBaseModel.cs" />
@@ -139,20 +140,33 @@
     <Compile Include="Models\DepartmentNoticeModels\MessageDispatchModel.cs" />
     <Compile Include="Models\EnterpriseNotice\NoticeListModel.cs" />
     <Compile Include="Models\ExamModels\ExamAnswerModel.cs" />
+    <Compile Include="Models\ExamModels\ExamBasicModel.cs" />
     <Compile Include="Models\ExamModels\ExamListModel.cs" />
     <Compile Include="Models\ExamModels\ExamResultModel.cs" />
     <Compile Include="Models\ExamModels\ExamDetailModel.cs" />
     <Compile Include="Models\ExamModels\ExamPreviewModel.cs" />
+    <Compile Include="Models\GroupTaskModels\GroupTaskBasicModel.cs" />
+    <Compile Include="Models\GroupTaskModels\GroupTaskDetailModel.cs" />
+    <Compile Include="Models\GroupTaskModels\GroupTaskListModel.cs" />
+    <Compile Include="Models\LearningFileModels\CourseDetailModel.cs" />
+    <Compile Include="Models\LearningFileModels\CourseLearningFileModel.cs" />
+    <Compile Include="Models\LearningFileModels\CoursePreviewModel.cs" />
+    <Compile Include="Models\LearningFileModels\LearningCourseBasicModel.cs" />
     <Compile Include="Models\LearningFileModels\LearningCourseDetailModel.cs" />
     <Compile Include="Models\LearningFileModels\LearningCourseListModel.cs" />
     <Compile Include="Models\LearningFileModels\LearningFileDetailModel.cs" />
     <Compile Include="Models\LearningFileModels\LearningFileListModel.cs" />
+    <Compile Include="Models\QuestionnaireModels\QuestionnaireAnswerModel.cs" />
+    <Compile Include="Models\QuestionnaireModels\QuestionnaireBasicModel.cs" />
     <Compile Include="Models\QuestionnaireModels\QuestionnaireDetailModel.cs" />
     <Compile Include="Models\QuestionnaireModels\QuestionnaireListModel.cs" />
+    <Compile Include="Models\QuestionnaireModels\QuestionnaireQuestionModel.cs" />
+    <Compile Include="Models\QuestionnaireModels\QuestionnaireQuestionPreviewModel.cs" />
     <Compile Include="Models\RoleModels\RoleListModel.cs" />
-    <Compile Include="Models\SearchModels\TaskBasicInfoSearchContext.cs" />
+    <Compile Include="Models\SearchModels\GroupTaskSearchContext.cs" />
+    <Compile Include="Models\SearchModels\TaskItemSearchContext.cs" />
+    <Compile Include="Models\SearchModels\TaskSearchContext.cs" />
     <Compile Include="Models\SearchModels\TrainingSearchContext.cs" />
-    <Compile Include="Models\SearchModels\TrainingTaskItemSearchContext.cs" />
     <Compile Include="Models\StorePatrolModels\StorePatrolSceneModel.cs" />
     <Compile Include="Models\StorePatrolModels\UserStorePatrolDetailModel.cs" />
     <Compile Include="Models\StorePatrolModels\UserStorePatrolPointModel.cs" />
@@ -163,8 +177,9 @@
     <Compile Include="Models\StorePatrolModels\UserStorePatrolPreviewModel.cs" />
     <Compile Include="Models\TaskModels\TaskBasicModel.cs" />
     <Compile Include="Models\TaskModels\TaskDetailsModel.cs" />
-    <Compile Include="Models\TaskModels\TaskLearningBaseModel.cs" />
+    <Compile Include="Models\TaskModels\TaskListModel.cs" />
     <Compile Include="Models\TaskModels\UserTaskDetailsModel.cs" />
+    <Compile Include="Models\TaskModels\UserTaskInfo.cs" />
     <Compile Include="Models\TrainingModels\TrainingBaseModel.cs" />
     <Compile Include="Models\TrainingModels\TrainingDetailModel.cs" />
     <Compile Include="Models\TrainingModels\TrainingListModel.cs" />
@@ -202,6 +217,9 @@
       <DependentUpon>EntitiesGen.Entities.tt</DependentUpon>
     </Compile>
     <Compile Include="Questionnaire.generated.cs">
+      <DependentUpon>EntitiesGen.Entities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="QuestionnaireChoice.generated.cs">
       <DependentUpon>EntitiesGen.Entities.tt</DependentUpon>
     </Compile>
     <Compile Include="QuestionnaireItem.generated.cs">
@@ -286,9 +304,6 @@
       <DependentUpon>EntitiesGen.Entities.tt</DependentUpon>
     </Compile>
     <Compile Include="UserQuestionnaireAnswer.generated.cs">
-      <DependentUpon>EntitiesGen.Entities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="UserQuestionReply.generated.cs">
       <DependentUpon>EntitiesGen.Entities.tt</DependentUpon>
     </Compile>
     <Compile Include="UserRole.generated.cs">

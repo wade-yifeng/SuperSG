@@ -14,9 +14,9 @@
     public class PermissionService : IPermissionService
     {
         private readonly ISleemonEntities _invoicingEntities;
-        public PermissionService([Dependency] ISleemonEntities entity)
+        public PermissionService()
         {
-            this._invoicingEntities = entity;
+            this._invoicingEntities = new SleemonEntities();
         }
         /// <summary>
         /// 根据parentid获取子节点

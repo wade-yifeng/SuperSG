@@ -36,6 +36,7 @@ namespace Sleemon.Data
         IDbSet<ProsComments> ProsComments { get; set; }
         IDbSet<ProsEnterpriseNotice> ProsEnterpriseNotice { get; set; }
         IDbSet<Questionnaire> Questionnaire { get; set; }
+        IDbSet<QuestionnaireChoice> QuestionnaireChoice { get; set; }
         IDbSet<QuestionnaireItem> QuestionnaireItem { get; set; }
         IDbSet<Role> Role { get; set; }
         IDbSet<RolePermission> RolePermission { get; set; }
@@ -58,7 +59,6 @@ namespace Sleemon.Data
         IDbSet<UserPointRecord> UserPointRecord { get; set; }
         IDbSet<UserQuestion> UserQuestion { get; set; }
         IDbSet<UserQuestionnaireAnswer> UserQuestionnaireAnswer { get; set; }
-        IDbSet<UserQuestionReply> UserQuestionReply { get; set; }
         IDbSet<UserRole> UserRole { get; set; }
         IDbSet<UserStorePatrol> UserStorePatrol { get; set; }
         IDbSet<UserTask> UserTask { get; set; }
@@ -69,7 +69,11 @@ namespace Sleemon.Data
         #region Function Imports
         IEnumerable<spCommitEntireExam_Result> spCommitEntireExam(Nullable<int> userTaskId, string userId);
     
+    	void spDeleteCourseById(Nullable<int> courseId);
+    
     	void spDeleteExamById(Nullable<int> examId);
+    
+    	void spDeleteQuestionnaireById(Nullable<int> questionnaireId);
     
         IEnumerable<spGetBroadcastMessage_Result> spGetBroadcastMessage(Nullable<int> maxCount);
     

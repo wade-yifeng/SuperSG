@@ -28,9 +28,11 @@
 
         public int BelongTo { get; set; }
 
-        public byte TaskStatus { get; set; }
+        public byte Status { get; set; }
 
         public string LastUpdateUser { get; set; }
+
+        public string LastUpdateUserName { get; set; }
 
         public DateTime LastUpdateTime { get; set; }
     }

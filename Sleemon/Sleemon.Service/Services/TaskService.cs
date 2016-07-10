@@ -1,4 +1,6 @@
-﻿namespace Sleemon.Service
+﻿using System.Data.Entity;
+
+namespace Sleemon.Service
 {
     using System;
     using System.Linq;
@@ -10,25 +12,28 @@
     using Sleemon.Core;
     using Sleemon.Data;
     using Sleemon.Common;
-
+    using System.Data;
     public class TaskService : ITaskService
     {
         private readonly ISleemonEntities _invoicingEntities;
 
-        public TaskService([Dependency] ISleemonEntities entity)
+        public TaskService()
         {
-            this._invoicingEntities = entity;
+            this._invoicingEntities = new SleemonEntities();
         }
 
-        public IList<UserTaskModel> SearchUserTaskList(string userUnqiueId, byte taskCategory, string input)
+        public IList<UserTaskModel> SearchUserTaskList(string userUnqiueId, byte listType, string input)
         {
             return
                 this._invoicingEntities.Database.SqlQuery<UserTaskModel>(@"
 SELECT [UserTask].[Id]      AS [UserTaskId]
+        ,[Task].[BelongTo]     AS [Type]
         ,[Task].[Title]       AS [Title]
         ,[Task].[StartFrom]   AS [StartFrom]
+        ,[Task].[EndTo]        AS [EndTo]
         ,[Task].[Point]   AS [Point]
-        ,[UserTask].[Status]  AS [Status]
+        ,[Task].[TaskCategory] AS [TaskCategory]
+        ,[UserTask].[Status]  AS [UserTaskStatus]
         ,[StatusOrder].[Order]
 FROM [dbo].[UserTask]
 JOIN [dbo].[Task]
@@ -38,26 +43,32 @@ JOIN (VALUES(2, 1), (5, 2), (1, 3), (3, 4), (4, 5)) [StatusOrder]([Status], [Ord
 WHERE [UserTask].[IsActive] = 1
     AND [Task].[IsActive] = 1
     AND [UserTask].[UserUniqueId] = @userUnqiueId
-    AND [Task].[TaskCategory] = @taskCategory
+    AND (CASE WHEN ([UserTask].[Status] = 1 AND ISNULL([Task].[EndTo], '2099-09-09') >= GETDATE()) OR [UserTask].[Status] IN (2,3, 5) THEN 1
+		          WHEN ([UserTask].[Status] = 1 AND ISNULL([Task].[EndTo], '2099-09-09') < GETDATE()) THEN 2
+		          WHEN ([UserTask].[Status] = 4) THEN 3
+		          ELSE 0 END) = @listType
     AND [Task].[BelongTo] = @belongTo
     AND [Task].[Title] LIKE @input
 ORDER BY [StatusOrder].[Order], [Task].[StartFrom] DESC, [UserTask].[Id]",
                 new SqlParameter("@userUnqiueId", userUnqiueId),
-                new SqlParameter("@taskCategory", taskCategory),
+                new SqlParameter("@listType", listType),
                 new SqlParameter("@input", string.Format("%{0}%", input)),
                 new SqlParameter("@belongTo", (int)TaskBelongTo.SingleTask)).ToList();
         }
 
-        public IList<UserTaskModel> GetUserTaskList(string userUnqiueId, byte taskCategory, int pageIndex, int pageSize)
+        public IEnumerable<UserTaskInfo> GetUserTaskList(string userUnqiueId, byte listType, int pageIndex, int pageSize)
         {
-            return this._invoicingEntities.Database.SqlQuery<UserTaskModel>(@"
+            var taskMap = this._invoicingEntities.Database.SqlQuery<UserTaskModel>(@"
 WITH [PagedUserTask] AS
 (
-    SELECT [UserTask].[Id]      AS [UserTaskId]
-          ,[Task].[Title]       AS [Title]
-          ,[Task].[StartFrom]   AS [StartFrom]
-          ,[Task].[Point]   AS [Point]
-          ,[UserTask].[Status]  AS [Status]
+    SELECT [UserTask].[Id]       AS [UserTaskId]
+          ,[Task].[BelongTo]     AS [Type]
+          ,[Task].[Title]        AS [Title]
+          ,[Task].[StartFrom]    AS [StartFrom]
+		  ,[Task].[EndTo]        AS [EndTo]
+          ,[Task].[Point]        AS [Point]
+		  ,[Task].[TaskCategory] AS [TaskCategory]
+          ,[UserTask].[Status]   AS [UserTaskStatus]
           ,[StatusOrder].[Order]
           ,ROW_NUMBER() OVER(ORDER BY [StatusOrder].[Order], [Task].[StartFrom] DESC, [UserTask].[Id]) AS [Row]
     FROM [dbo].[UserTask]
@@ -68,33 +79,70 @@ WITH [PagedUserTask] AS
     WHERE [UserTask].[IsActive] = 1
         AND [Task].[IsActive] = 1
         AND [UserTask].[UserUniqueId] = @userUnqiueId
-        AND [Task].[TaskCategory] = @taskCategory
-        AND [Task].[BelongTo] = @belongTo
+        AND (CASE WHEN ([UserTask].[Status] = 1 AND ISNULL([Task].[EndTo], '2099-09-09') >= GETDATE()) OR [UserTask].[Status] IN (2,3, 5) THEN 1
+		          WHEN ([UserTask].[Status] = 1 AND ISNULL([Task].[EndTo], '2099-09-09') < GETDATE()) THEN 2
+		          WHEN ([UserTask].[Status] = 4) THEN 3
+		          ELSE 0 END) = @listType
+        AND [Task].[BelongTo] IN (1,3)
 )
 SELECT [PagedUserTask].[UserTaskId]
+      ,[PagedUserTask].[Type]
       ,[PagedUserTask].[Title]
       ,[PagedUserTask].[StartFrom]
+      ,[PagedUserTask].[EndTo]
       ,ISNULL([PagedUserTask].[Point], 0) AS [Point]
-      ,[PagedUserTask].[Status]
-FROM [PagedUserTask]
-WHERE [PagedUserTask].[Row] BETWEEN (@pageIndex - 1) * @pageSize + 1 AND @pageIndex * @pageSize",
+      ,[PagedUserTask].[UserTaskStatus]
+	  ,[PagedUserTask].[TaskCategory]
+      ,[GroupTask].[Id] AS GroupId
+	  ,[GroupTask].[Title] AS GroupTitle
+	  ,[GroupTask].[RequiredGrade]
+FROM [PagedUserTask] LEFT JOIN [GroupSubTask]
+	ON [GroupSubTask].TaskId = [PagedUserTask].[UserTaskId]
+	LEFT JOIN [GroupTask] ON [GroupTask].Id = [GroupSubTask].[GroupTaskId]
+WHERE ([GroupTask].[Status] IS NULL OR [GroupTask].[Status] = 1) AND [PagedUserTask].[Row] BETWEEN (@pageIndex - 1) * @pageSize + 1 AND @pageIndex * @pageSize",
                 new SqlParameter("@userUnqiueId", userUnqiueId),
-                new SqlParameter("@taskCategory", taskCategory),
+                new SqlParameter("@listType", listType),
                 new SqlParameter("@pageIndex", pageIndex),
-                new SqlParameter("@pageSize", pageSize),
-                new SqlParameter("@belongTo", (int)TaskBelongTo.SingleTask)).ToList();
+                new SqlParameter("@pageSize", pageSize)).ToLookup(t => t.GroupId == null ? t.UserTaskId : t.GroupId.Value);
+
+            return from IGrouping<int, UserTaskModel> columnMap in taskMap
+                   let firstTask = columnMap.First()
+                   let type = (TaskBelongTo)firstTask.Type
+                   select
+                       new UserTaskInfo
+                       {
+                           Type = type,
+                           GroupId = type == TaskBelongTo.GroupTask ? firstTask.GroupId.Value : 0,
+                           RequiredGrade = type == TaskBelongTo.GroupTask ? firstTask.RequiredGrade.Value : 0,
+                           Title = type == TaskBelongTo.GroupTask ? firstTask.GroupTitle : firstTask.Title,
+                           SubTaskList = columnMap.Select(
+                               t => new UserTaskModel
+                               {
+                                   Title = t.Title,
+                                   TaskCategory = t.TaskCategory,
+                                   Point = t.Point,
+                                   StartFrom = t.StartFrom,
+                                   EndTo = t.EndTo,
+                                   UserTaskStatus = t.UserTaskStatus,
+                                   Type = t.Type,
+                                   UserTaskId = t.UserTaskId,
+                                   GroupId = t.GroupId,
+                                   GroupTitle = t.GroupTitle,
+                                   RequiredGrade = t.RequiredGrade
+                               }).ToList()
+                       };
         }
 
-        public IList<TaskDetailsModel> GetTaskBasicInfoList(TaskBasicInfoSearchContext searchContext, out int totalCount)
+        public IList<TaskListModel> GetTaskList(TaskSearchContext search)
         {
-            var entities = this._invoicingEntities.Task.Where(searchContext.GenerateSearchConditions()).OrderBy(p => p.Status).ThenByDescending(p => p.LastUpdateTime);
+            var entities = this._invoicingEntities.Task.Where(search.GenerateSearchConditions()).OrderBy(p => p.Status).ThenByDescending(p => p.LastUpdateTime);
             var userEntities = this._invoicingEntities.User.Where(p => p.IsActive).ToList();
 
-            totalCount = entities.Count();
+            var totalCount = entities.Count();
 
             return
-                entities.Skip((searchContext.PageIndex - 1) * searchContext.PageSize)
-                    .Take(searchContext.PageSize)
+                entities.Skip((search.PageIndex - 1) * search.PageSize)
+                    .Take(search.PageSize)
                     .ToList()
                     .Select(p =>
                     {
@@ -105,7 +153,7 @@ WHERE [PagedUserTask].[Row] BETWEEN (@pageIndex - 1) * @pageSize + 1 AND @pageIn
                             lastUpdateUserName = firstOrDefault.Name;
                         }
 
-                        return new TaskDetailsModel()
+                        return new TaskListModel()
                         {
                             TaskId = p.Id,
                             Title = p.Title,
@@ -119,16 +167,19 @@ WHERE [PagedUserTask].[Row] BETWEEN (@pageIndex - 1) * @pageSize + 1 AND @pageIn
                             SalesAbility = p.SalesAbility,
                             ExhibitAbility = p.ExhibitAbility,
                             BelongTo = p.BelongTo,
-                            TaskStatus = p.Status,
+                            Status = p.Status,
                             LastUpdateUser = p.LastUpdateUser,
                             LastUpdateUserName = lastUpdateUserName,
-                            LastUpdateTime = p.LastUpdateTime
+                            LastUpdateTime = p.LastUpdateTime,
+                            PageIndex = search.PageIndex,
+                            PageSize = search.PageSize,
+                            TotalCount = totalCount
                         };
                     })
                     .ToList();
         }
 
-        public TaskDetailsModel GetTaskBasicInfoDetailById(int taskId)
+        public TaskDetailsModel GetTaskDetailById(int taskId)
         {
             var taskEntity = this._invoicingEntities.Task.FirstOrDefault(p => p.IsActive && p.Id == taskId);
 
@@ -151,7 +202,7 @@ WHERE [PagedUserTask].[Row] BETWEEN (@pageIndex - 1) * @pageSize + 1 AND @pageIn
                 SalesAbility = taskEntity.SalesAbility,
                 ExhibitAbility = taskEntity.ExhibitAbility,
                 BelongTo = taskEntity.BelongTo,
-                TaskStatus = taskEntity.Status,
+                Status = taskEntity.Status,
                 LastUpdateUser = lastUpdateUser == null ? string.Empty : lastUpdateUser.Name,
                 LastUpdateTime = taskEntity.LastUpdateTime,
                 UserIds = userIds
@@ -197,7 +248,7 @@ SELECT [GroupExamQuestion].[QuestionCount]
 FROM [dbo].[TaskExam]
 JOIN [dbo].[Exam]
     ON [Exam].[Id] = [TaskExam].[ExamId]
-JOIN (SELECT [ExamQuestion].[ExamId], COUNT(*) AS [QuestionCount] FROM [dbo].[ExamQuestion] GROUP BY [ExamQuestion].[ExamId]) AS [GroupExamQuestion]
+JOIN (SELECT [ExamQuestion].[ExamId], COUNT(*) AS [QuestionCount] FROM [dbo].[ExamQuestion] WHERE [ExamQuestion].[IsActive] = 1 GROUP BY [ExamQuestion].[ExamId]) AS [GroupExamQuestion]
     ON [TaskExam].[ExamId] = [GroupExamQuestion].[ExamId]
 WHERE [TaskExam].[IsActive] = 1
     AND [TaskExam].[TaskId] = @taskId", new SqlParameter("@taskId", taskId)).FirstOrDefault();
@@ -210,7 +261,7 @@ WHERE [TaskExam].[IsActive] = 1
             if (taskExamEntity == null) return null;
 
             return
-                this._invoicingEntities.ExamQuestion.Where(p => p.ExamId == taskExamEntity.ExamId)
+                this._invoicingEntities.ExamQuestion.Include(p => p.ExamChoice).Where(p => p.ExamId == taskExamEntity.ExamId && p.IsActive)
                     .Select(p => new ExamQuestionModel()
                     {
                         ExamQuestionId = p.Id,
@@ -221,7 +272,7 @@ WHERE [TaskExam].[IsActive] = 1
                         CorrectAnswer = p.CorrectAnswer,
                         Score = p.Score,
                         Choices =
-                            this._invoicingEntities.ExamChoice.Where(o => o.ExamQuestionId == p.Id)
+                            p.ExamChoice.Where(o => o.IsActive)
                                 .Select(o => new ExamChoiceModel()
                                 {
                                     Choice = o.Choice,
@@ -230,6 +281,7 @@ WHERE [TaskExam].[IsActive] = 1
                                     IsAnswer = o.IsAnswer
                                 }).ToList()
                     })
+                    .OrderBy(p => p.ExamQuestionId)
                     .ToList();
         }
 
@@ -242,6 +294,7 @@ WHERE [TaskExam].[IsActive] = 1
                         ExamQuestionId = p.ExamQuestionId,
                         MyAnswer = p.MyAnswer
                     })
+                    .OrderBy(p => p.ExamQuestionId)
                     .ToList();
         }
 
@@ -251,10 +304,25 @@ WHERE [TaskExam].[IsActive] = 1
                 this._invoicingEntities.UserExamAnswer.FirstOrDefault(
                     p => p.UserUniqueId == userUniqueId && p.IsActive && p.ExamQuestionId == examQuestionId && p.TaskId == taskId);
 
-            if (myAnswerEntity == null) return this.CreateSingleExamQuestion(taskId, userUniqueId, examQuestionId, myAnswer);
+            //TODO: Refactor this logic
+            if (myAnswerEntity == null && !string.IsNullOrEmpty(myAnswer))
+            {
+                return this.CreateSingleExamQuestion(taskId, userUniqueId, examQuestionId, myAnswer);
+            }
 
-            myAnswerEntity.MyAnswer = myAnswer;
-            myAnswerEntity.LastUpdateTime = DateTime.UtcNow;
+            if (myAnswerEntity != null && string.IsNullOrEmpty(myAnswer))
+            {
+                this._invoicingEntities.UserExamAnswer.Remove(myAnswerEntity);
+            }
+            else if (myAnswerEntity != null)
+            {
+                myAnswerEntity.MyAnswer = myAnswer;
+                myAnswerEntity.LastUpdateTime = DateTime.UtcNow;
+            }
+            else
+            {
+                //TODO: 
+            }
 
             this._invoicingEntities.SaveChanges();
 
@@ -280,7 +348,7 @@ WHERE [TaskExam].[IsActive] = 1
                     .FirstOrDefault();
         }
 
-        public ResultBase SaveTaskBasicInfo(TaskDetailsModel taskModel)
+        public ResultBase SaveTaskDetail(TaskDetailsModel taskModel)
         {
             var taskId = taskModel.TaskId;
             var taskEntity = this._invoicingEntities.Task.FirstOrDefault(p => p.IsActive && p.Id == taskModel.TaskId);
@@ -302,47 +370,50 @@ WHERE [TaskExam].[IsActive] = 1
                 taskEntity.SalesAbility = taskModel.SalesAbility;
                 taskEntity.ExhibitAbility = taskModel.ExhibitAbility;
                 taskEntity.BelongTo = taskModel.BelongTo;
-                taskEntity.Status = taskModel.TaskStatus;
+                taskEntity.Status = taskModel.Status;
                 taskEntity.LastUpdateUser = taskModel.LastUpdateUser;//TODO: Last update user unique id
                 taskEntity.LastUpdateTime = DateTime.UtcNow;
 
                 this._invoicingEntities.SaveChanges();
             }
 
-            if (taskModel.TaskStatus == 2)
+            if (taskModel.Status == 2)
             {
-                foreach (var userId in taskModel.UserIds)
+                if (taskModel.UserIds != null)
                 {
-                    var userTaskEntity = this._invoicingEntities.UserTask.Create();
+                    foreach (var userId in taskModel.UserIds)
+                    {
+                        var userTaskEntity = this._invoicingEntities.UserTask.Create();
 
-                    userTaskEntity.UserUniqueId = userId;
-                    userTaskEntity.TaskId = taskId;
-                    userTaskEntity.AssignTime = DateTime.UtcNow;
-                    userTaskEntity.Status = 0;
-                    userTaskEntity.IsActive = true;
+                        userTaskEntity.UserUniqueId = userId;
+                        userTaskEntity.TaskId = taskId;
+                        userTaskEntity.AssignTime = DateTime.UtcNow;
+                        userTaskEntity.Status = 0;
+                        userTaskEntity.IsActive = true;
 
-                    this._invoicingEntities.UserTask.Add(userTaskEntity);
+                        this._invoicingEntities.UserTask.Add(userTaskEntity);
+                    }
+
+                    this._invoicingEntities.SaveChanges();
+
+                    var messageDispatchEntity = this._invoicingEntities.MessageDispatch.Create();
+
+                    messageDispatchEntity.Subject = taskModel.DispatchSubject;
+                    messageDispatchEntity.Priority = taskModel.DispatchPriority;
+                    messageDispatchEntity.ToUsers = string.Join("|", taskModel.UserIds);
+                    messageDispatchEntity.MessageType = taskModel.TaskCategory;
+                    messageDispatchEntity.LinkedId = taskId;
+                    messageDispatchEntity.DispatchType = taskModel.DispatchType;
+                    messageDispatchEntity.DispatchTime = taskModel.DispatchTime;
+
+                    messageDispatchEntity.Status = 1;
+                    messageDispatchEntity.LastUpdateUser = taskModel.LastUpdateUser;//TODO: Last update user unique id
+                    messageDispatchEntity.LastUpdateTime = DateTime.UtcNow;
+                    messageDispatchEntity.IsActive = true;
+
+                    this._invoicingEntities.MessageDispatch.Add(messageDispatchEntity);
+                    this._invoicingEntities.SaveChanges();
                 }
-
-                this._invoicingEntities.SaveChanges();
-
-                var messageDispatchEntity = this._invoicingEntities.MessageDispatch.Create();
-
-                messageDispatchEntity.Subject = taskModel.DispatchSubject;
-                messageDispatchEntity.Priority = taskModel.DispatchPriority;
-                messageDispatchEntity.ToUsers = string.Join("|", taskModel.UserIds);
-                messageDispatchEntity.MessageType = taskModel.TaskCategory;
-                messageDispatchEntity.LinkedId = taskId;
-                messageDispatchEntity.DispatchType = taskModel.DispatchType;
-                messageDispatchEntity.DispatchTime = taskModel.DispatchTime;
-
-                messageDispatchEntity.Status = 1;
-                messageDispatchEntity.LastUpdateUser = taskModel.LastUpdateUser;//TODO: Last update user unique id
-                messageDispatchEntity.LastUpdateTime = DateTime.UtcNow;
-                messageDispatchEntity.IsActive = true;
-
-                this._invoicingEntities.MessageDispatch.Add(messageDispatchEntity);
-                this._invoicingEntities.SaveChanges();
 
                 if (taskModel.TaskCategory == (byte)TaskCategory.Learning)
                 {
@@ -438,7 +509,7 @@ WHERE [TaskExam].[IsActive] = 1
             };
         }
 
-        public ResultBase DeleteTaskBasicInfo(int taskId)
+        public ResultBase DeleteTaskById(int taskId)
         {
             var taskEntity =
                 this._invoicingEntities.Task.FirstOrDefault(
@@ -517,7 +588,7 @@ WHERE [TaskExam].[IsActive] = 1
             taskEntity.SalesAbility = model.SalesAbility;
             taskEntity.ExhibitAbility = model.ExhibitAbility;
             taskEntity.BelongTo = model.BelongTo;
-            taskEntity.Status = model.TaskStatus;
+            taskEntity.Status = model.Status;
             taskEntity.LastUpdateUser = model.LastUpdateUser;//TODO: Last update user unique id
             taskEntity.LastUpdateTime = DateTime.UtcNow;
 

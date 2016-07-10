@@ -135,6 +135,12 @@ namespace Sleemon.Data
             get { return this._UserExamAnswer ?? (this._UserExamAnswer = new HashSet<UserExamAnswer>()); }
             set { this._UserExamAnswer = value; }
         }
+        private ICollection<UserQuestionnaireAnswer> _UserQuestionnaireAnswer;
+        public virtual ICollection<UserQuestionnaireAnswer> UserQuestionnaireAnswer
+        {
+            get { return this._UserQuestionnaireAnswer ?? (this._UserQuestionnaireAnswer = new HashSet<UserQuestionnaireAnswer>()); }
+            set { this._UserQuestionnaireAnswer = value; }
+        }
         private ICollection<UserTask> _UserTask;
         public virtual ICollection<UserTask> UserTask
         {

@@ -16,10 +16,9 @@
     {
         private readonly ISleemonEntities _invoicingEntities;
         private readonly IRoleService roleService;
-        public RolePermissionService([Dependency] ISleemonEntities entity,
-            [Dependency] IRoleService roleService)
+        public RolePermissionService([Dependency] IRoleService roleService)
         {
-            this._invoicingEntities = entity;
+            this._invoicingEntities = new SleemonEntities();
             this.roleService = roleService;
         }
 

@@ -48,6 +48,8 @@ namespace Sleemon.Data
     	}
         [Column(Name = "IsActive", DbType = "Boolean", CanBeNull = false)]
         public bool IsActive { get; set; }
+        [Column(Name = "OnOff", DbType = "Boolean", CanBeNull = false)]
+        public bool OnOff { get; set; }
     
         private ICollection<GroupSubTask> _GroupSubTask;
         public virtual ICollection<GroupSubTask> GroupSubTask

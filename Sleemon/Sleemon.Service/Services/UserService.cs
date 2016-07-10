@@ -211,15 +211,18 @@ WHERE [UserDailySignIn].[UserUniqueId] = @userId
             return userList;
         }
 
-        public bool SetUserRole(string currentUserId, string userUniqueid, int roleid)
+        public ResultBase SetUserRole(string currentUserId, string userUniqueid, int roleid)
         {
+            var result = new ResultBase();
+
             var role = from r in this._invoicingEntities.Role
                        where r.Id == roleid
                        select r;
             if (role == null)
             {
                 LogHelper<UserService>.WriteInfo("权限不存在，权限Id:" + roleid);
-                return false;
+                result.IsSuccess = false;
+                return result;
             }
             var userRoleByUser = from ur in this._invoicingEntities.UserRole
                                  where ur.UserUniqueId == userUniqueid
@@ -239,7 +242,8 @@ WHERE [UserDailySignIn].[UserUniqueId] = @userId
             this._invoicingEntities.UserRole.Add(userRole);
 
             int res = this._invoicingEntities.SaveChanges();
-            return res > 0;
+            result.IsSuccess = res > 0;
+            return result;
         }
 
         public ResultBase UpdateUserProfile(UserProfile userProfile)

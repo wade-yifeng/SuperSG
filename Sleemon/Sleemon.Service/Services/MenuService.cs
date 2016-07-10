@@ -17,9 +17,9 @@
         private readonly ISleemonEntities _invoicingEntities;
         private readonly IRoleService roleService;
         private readonly IUserService userService;
-        public MenuService([Dependency] ISleemonEntities entity, [Dependency]IRoleService roleService, [Dependency]IUserService userService)
+        public MenuService([Dependency]IRoleService roleService, [Dependency]IUserService userService)
         {
-            this._invoicingEntities = entity;
+            this._invoicingEntities = new SleemonEntities();
             this.roleService = roleService;
             this.userService = userService;
         }

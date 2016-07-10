@@ -2,7 +2,7 @@
 {
     using System;
 
-    public class TrainingListModel : TrainingDetailModel
+    public class TrainingListModel : TrainingBasicModel
     {
         public int PageIndex { get; set; }
 

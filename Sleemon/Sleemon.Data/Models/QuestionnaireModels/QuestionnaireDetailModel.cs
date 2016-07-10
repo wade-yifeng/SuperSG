@@ -1,19 +1,33 @@
 ﻿namespace Sleemon.Data
 {
-    using System;
+    using System.Collections.Generic;
 
-    public class QuestionnaireDetailModel
+    public class QuestionnaireDetailModel : QuestionnaireBasicModel
     {
-        public int Id { get; set; }
-        
-        public string Title { get; set; }
+        public List<QuestionnaireItemModel> Questions { get; set; }
+    }
+
+    public class QuestionnaireItemModel
+    {
+        public short No { get; set; }
+
+        public string Question { get; set; }
+
+        public string Image { get; set; }
+
+        public byte Category { get; set; }
+
+        public double Rate { get; set; }
+
+        public List<QuestionnaireChoiceModel> Choices { get; set; }
+    }
+
+    public class QuestionnaireChoiceModel
+    {
+        public byte Choice { get; set; }
 
         public string Description { get; set; }
 
-        public string LastUpdateUserName { get; set; }
-
-        public string LastUpdateUser { get; set; }
-
-        public DateTime LastUpdateTime { get; set; }
+        public string Image { get; set; }
     }
 }

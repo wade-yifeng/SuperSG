@@ -16,9 +16,9 @@
     {
         private readonly ISleemonEntities _invoicingEntities;
 
-        public StorePatrolService([Dependency] ISleemonEntities invoicingEntities)
+        public StorePatrolService()
         {
-            this._invoicingEntities = invoicingEntities;
+            this._invoicingEntities = new SleemonEntities();
         }
 
         public IList<int> GetTaskPatrolCategories(int taskId)

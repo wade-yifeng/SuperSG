@@ -77,6 +77,7 @@ namespace Sleemon.Data
         public IDbSet<ProsComments> ProsComments { get; set; }
         public IDbSet<ProsEnterpriseNotice> ProsEnterpriseNotice { get; set; }
         public IDbSet<Questionnaire> Questionnaire { get; set; }
+        public IDbSet<QuestionnaireChoice> QuestionnaireChoice { get; set; }
         public IDbSet<QuestionnaireItem> QuestionnaireItem { get; set; }
         public IDbSet<Role> Role { get; set; }
         public IDbSet<RolePermission> RolePermission { get; set; }
@@ -99,7 +100,6 @@ namespace Sleemon.Data
         public IDbSet<UserPointRecord> UserPointRecord { get; set; }
         public IDbSet<UserQuestion> UserQuestion { get; set; }
         public IDbSet<UserQuestionnaireAnswer> UserQuestionnaireAnswer { get; set; }
-        public IDbSet<UserQuestionReply> UserQuestionReply { get; set; }
         public IDbSet<UserRole> UserRole { get; set; }
         public IDbSet<UserStorePatrol> UserStorePatrol { get; set; }
         public IDbSet<UserTask> UserTask { get; set; }
@@ -122,10 +122,22 @@ namespace Sleemon.Data
      		return  this.spCommitEntireExam(userTaskId, userId);	
     	}
     
+    	public void spDeleteCourseById(Nullable<int> courseId)
+    	{
+    		ObjectParameter courseIdParameter = courseId.HasValue ? new ObjectParameter("courseId", courseId) : new ObjectParameter("courseId", typeof(int));
+    		_Context.ExecuteFunction("spDeleteCourseById", courseIdParameter);
+    	}
+    
     	public void spDeleteExamById(Nullable<int> examId)
     	{
     		ObjectParameter examIdParameter = examId.HasValue ? new ObjectParameter("examId", examId) : new ObjectParameter("examId", typeof(int));
     		_Context.ExecuteFunction("spDeleteExamById", examIdParameter);
+    	}
+    
+    	public void spDeleteQuestionnaireById(Nullable<int> questionnaireId)
+    	{
+    		ObjectParameter questionnaireIdParameter = questionnaireId.HasValue ? new ObjectParameter("questionnaireId", questionnaireId) : new ObjectParameter("questionnaireId", typeof(int));
+    		_Context.ExecuteFunction("spDeleteQuestionnaireById", questionnaireIdParameter);
     	}
     
     	public ObjectResult<spGetBroadcastMessage_Result> spGetBroadcastMessage(Nullable<int> maxCount)

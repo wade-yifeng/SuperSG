@@ -5,8 +5,6 @@
 
     public class TaskDetailsModel : TaskBasicModel
     {
-        public string LastUpdateUserName { get; set; }
-
         public List<string> UserIds { get; set; }
 
         public string DispatchSubject { get; set; }

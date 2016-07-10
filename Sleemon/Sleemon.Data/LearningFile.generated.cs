@@ -24,16 +24,6 @@ namespace Sleemon.Data
         public int Id { get; set; }
         [Column(Name = "Subject", DbType = "String", CanBeNull = false)]
         public string Subject { get; set; }
-        [Column(Name = "Description", DbType = "String")]
-        public string Description { get; set; }
-        [Column(Name = "FilePath", DbType = "String", CanBeNull = false)]
-        public string FilePath { get; set; }
-        [Column(Name = "FileType", DbType = "Byte", CanBeNull = false)]
-        public byte FileType { get; set; }
-        [Column(Name = "ChapterId", DbType = "Int32", CanBeNull = false)]
-        public int ChapterId { get; set; }
-        [Column(Name = "No", DbType = "Int32", CanBeNull = false)]
-        public int No { get; set; }
         [Column(Name = "LastUpdateUser", DbType = "String", CanBeNull = false)]
         public string LastUpdateUser { get; set; }
         [Column(Name = "LastUpdateTime", DbType = "DateTime", CanBeNull = false)]
@@ -52,6 +42,16 @@ namespace Sleemon.Data
     	}
         [Column(Name = "IsActive", DbType = "Boolean", CanBeNull = false)]
         public bool IsActive { get; set; }
+        [Column(Name = "Description", DbType = "String")]
+        public string Description { get; set; }
+        [Column(Name = "FileType", DbType = "Byte", CanBeNull = false)]
+        public byte FileType { get; set; }
+        [Column(Name = "ChapterId", DbType = "Int32", CanBeNull = false)]
+        public int ChapterId { get; set; }
+        [Column(Name = "No", DbType = "Int32", CanBeNull = false)]
+        public int No { get; set; }
+        [Column(Name = "Content", DbType = "String", CanBeNull = false)]
+        public string Content { get; set; }
     
         public virtual LearningChapter LearningChapter { get; set; }
         private ICollection<TaskExam> _TaskExam;

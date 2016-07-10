@@ -15,9 +15,9 @@
     {
         private readonly ISleemonEntities _invoicingEntities;
 
-        public ExamService([Dependency] ISleemonEntities invoicingEntities)
+        public ExamService()
         {
-            this._invoicingEntities = invoicingEntities;
+            this._invoicingEntities = new SleemonEntities();
         }
 
         public IList<ExamListModel> GetExamList(int pageIndex, int pageSize, string examTitle)
@@ -79,7 +79,7 @@ WHERE [ExamWithRowNumber].[Row] BETWEEN (@pageIndex -1) * @pageSize + 1 AND @pag
                 LastUpdateUser = lastUpdateUser != null ? lastUpdateUser.UserUniqueId : string.Empty,
                 LastUpdateUserName = lastUpdateUser != null ? lastUpdateUser.Name : string.Empty,
                 LastUpdateTime = examEntity.LastUpdateTime,
-                State = examEntity.Status
+                Status = examEntity.Status
             };
 
             examDetails.Questions =
@@ -107,7 +107,9 @@ WHERE [ExamWithRowNumber].[Row] BETWEEN (@pageIndex -1) * @pageSize + 1 AND @pag
 
         public ResultBase SaveExamDetail(ExamDetailModel model)
         {
-            var uniqueIdentifierId = model.State == (byte)ActionCategory.Publish ? Guid.NewGuid() : Guid.Empty;
+            //TODO: Refactor this Function
+
+            var uniqueIdentifierId = model.Status == (byte)ActionCategory.Publish ? Guid.NewGuid() : Guid.Empty;
 
             var examEntity = this._invoicingEntities.Exam.FirstOrDefault(p => p.IsActive && p.Id == model.Id);
             if (examEntity != null)
@@ -127,7 +129,7 @@ WHERE [ExamWithRowNumber].[Row] BETWEEN (@pageIndex -1) * @pageSize + 1 AND @pag
             newExamEntity.PassingScore = model.PassingScore;
             newExamEntity.LastUpdateTime = DateTime.UtcNow;
             newExamEntity.LastUpdateUser = model.LastUpdateUser;
-            newExamEntity.Status = model.State;
+            newExamEntity.Status = model.Status;
             if (uniqueIdentifierId != Guid.Empty)
             {
                 newExamEntity.GroupKey = uniqueIdentifierId;
